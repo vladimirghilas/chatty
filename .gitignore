@@ -1,0 +1,32 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.sqlite3
+
+# Среда разработки
+.env
+venv/
+*.egg-info/
+.idea/
+.vscode/
+
+# Docker
+*.log
+*.pid
+docker-compose.override.yml
+postgres_data/
+
+# Статические файлы
+static/
+media/
+
+# Django
+db.sqlite3
+*.pot
+*.mo
+
+# Системные файлы
+.DS_Store
+Thumbs.db
