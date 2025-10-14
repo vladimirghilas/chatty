@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django import forms
 from django.forms.models import ModelForm
-
+from django.contrib.auth.forms import SetPasswordForm
 
 class UserRegistrationForm(forms.ModelForm):
     class Meta:
@@ -44,3 +44,15 @@ class UserEditForm(forms.ModelForm):
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
         }
+class CustomSetPasswordForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        placeholder_text = "Введите новый пароль"
+        self.fields['new_password1'].widget.attrs.update({
+            'placeholder': placeholder_text,
+            'class': 'form-control'
+        })
+        self.fields['new_password2'].widget.attrs.update({
+            'placeholder': placeholder_text,
+            'class': 'form-control'
+        })

@@ -7,7 +7,6 @@ from .forms import UserRegistrationForm, UserEditForm
 from django.contrib import messages
 from .utils import send_activation_email, verify_activation_token
 
-
 # Create your views here.
 
 def users_list(request):
