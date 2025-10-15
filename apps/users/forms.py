@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django import forms
-from django.forms.models import ModelForm
 from django.contrib.auth.forms import SetPasswordForm
+from .models import Profile
 
 class UserRegistrationForm(forms.ModelForm):
     class Meta:
@@ -34,6 +34,14 @@ class UserRegistrationForm(forms.ModelForm):
             user.save()
         return user
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar', 'bio', 'contact']
+        widgets = {
+            'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'О себе...'}),
+            'contact': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Контактные данные'}),
+        }
 
 class UserEditForm(forms.ModelForm):
     class Meta:

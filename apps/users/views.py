@@ -3,7 +3,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
-from .forms import UserRegistrationForm, UserEditForm
+from .forms import UserRegistrationForm, UserEditForm, ProfileForm
 from django.contrib import messages
 from .utils import send_activation_email, verify_activation_token
 
@@ -88,6 +88,32 @@ def resend_activation(request):
 #         else:
 #             messages.error(request, 'Неверное имя пользователя или пароль!')
 #     return render(request, 'users/login.html')
+
+@login_required
+def profile_view(request):
+    profile = request.user.profile
+    return render(request, 'users/profile_view.html', {'profile': profile})
+
+@login_required
+def profile_edit(request):
+    profile = request.user.profile  # получаем профиль текущего пользователя
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Профиль успешно обновлён")
+        else:
+            messages.error(request, "Ошибка при обновлении профиля")
+    else:
+        # Важно: при GET-запросе передаём instance=profile
+        form = ProfileForm(instance=profile)
+
+    # Передаём profile в контекст, чтобы шаблон мог показать аватар
+    return render(request, 'users/profile_edit.html', {
+        'form': form,
+        'profile': profile,
+    })
 @login_required
 def edit_user(request, user_id):
     user = get_object_or_404(User, id=user_id)

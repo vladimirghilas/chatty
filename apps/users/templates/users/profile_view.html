@@ -1,0 +1,104 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+<main class="mt-4">
+
+  <!-- Header full-width: Avatar + Info + Buton -->
+  <div class="w-100 bg-white shadow-sm p-3 mb-4 d-flex justify-content-between align-items-start flex-wrap">
+
+    <!-- Stânga: Avatar + Nume + Email -->
+    <div class="d-flex align-items-center">
+      {% if profile.avatar %}
+        <img src="{{ profile.avatar.url }}" alt="Аватар"
+             class="rounded-circle me-3"
+             style="width: 120px; height: 120px; object-fit: cover;">
+      {% else %}
+        <img src="{% static 'images/default-avatar.png' %}" alt="Аватар"
+             class="rounded-circle me-3"
+             style="width: 120px; height: 120px; object-fit: cover;">
+      {% endif %}
+
+      <div>
+        <h2 class="fw-semibold mb-1">Профиль пользователя</h2>
+        <p class="text-muted mb-0"><strong>Имя пользователя:</strong> {{ request.user.username }}</p>
+        <p class="text-muted mb-0"><strong>Email:</strong> {{ request.user.email|default:"Не указан" }}</p>
+      </div>
+    </div>
+
+    <!-- Dreapta: Buton editare -->
+    <div class="mt-3 mt-md-0 d-flex align-items-start ms-auto">
+      <a href="{% url 'users:profile_edit' %}" class="btn btn-primary fw-semibold">
+        <i class="fas fa-edit me-2"></i>Редактировать профиль
+      </a>
+    </div>
+  </div>
+
+  <!-- Secțiune principală cu 3 containere orizontale -->
+  <div class="container">
+    <div class="row g-4 justify-content-center">
+
+      <!-- 1️⃣ Информация -->
+      <div class="col-12 col-md-4">
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-body p-4">
+            <h4 class="fw-semibold mb-3 text-center">Информация</h4>
+            <table class="table table-borderless mb-0">
+              <tr>
+                <td><strong>Имя:</strong></td>
+                <td>{{ request.user.username }}</td>
+              </tr>
+              <tr>
+                <td><strong>Email:</strong></td>
+                <td>{{ request.user.email|default:"Не указан" }}</td>
+              </tr>
+              <tr>
+                <td><strong>Регистрация:</strong></td>
+                <td>{{ request.user.date_joined|date:"d M Y" }}</td>
+              </tr>
+              <tr>
+                <td><strong>Последний вход:</strong></td>
+                <td>{{ request.user.last_login|date:"d M Y, H:i" }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2️⃣ Статистика -->
+      <div class="col-12 col-md-4">
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-body p-4 text-center">
+            <h4 class="fw-semibold mb-3">Статистика</h4>
+            <div class="row text-center">
+              <div class="col-12 mb-3">
+                <h3 class="text-primary mb-0">{{ total_snippets|default:"0" }}</h3>
+                <small class="text-muted">Всего постов</small>
+              </div>
+              <div class="col-12">
+                <h3 class="text-success mb-0">{{ average_views|default:"0" }}</h3>
+                <small class="text-muted">Сред. просмотров</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3️⃣ Био -->
+      <div class="col-12 col-md-4">
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-body p-4">
+            <h4 class="fw-semibold mb-3 text-center">Био</h4>
+            <p class="mb-2">{{ profile.bio|default:"Пользователь еще не добавил описание." }}</p>
+            <p class="mb-0"><strong>Контакты:</strong> {{ profile.contact|default:"Нет контакта" }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+{% endblock %}

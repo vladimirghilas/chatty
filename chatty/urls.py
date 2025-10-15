@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('apps.core.urls')),  # Home page
@@ -23,4 +25,4 @@ urlpatterns = [
     path('users/', include('apps.users.urls')),  # подключаем urls из приложения users
     path('posts/', include('apps.posts.urls')),  # подключаем urls из приложения posts
     path('comments/', include('apps.comments.urls')),  # подключаем urls из приложения comments
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

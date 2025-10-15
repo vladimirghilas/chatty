@@ -38,12 +38,12 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow">
               <li>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{% url 'users:profile_view' %}">
                   <i class="bi bi-person-gear"></i> Профиль
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{% url 'users:profile_edit' %}">
                   <i class="bi bi-pencil-square"></i> Редактировать
                 </a>
               </li>
