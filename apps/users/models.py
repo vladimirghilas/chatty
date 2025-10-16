@@ -13,6 +13,9 @@ class Profile(models.Model):
     bio = models.TextField("Описание", blank=True, null=True)
     contact = models.CharField("Контактные данные", max_length=255, blank=True, null=True)
     avatar = models.ImageField("Аватар", upload_to=user_avatar_path, blank=True, null=True)
+    website = models.URLField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.user.username

@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = '/'  # после входа
 LOGOUT_REDIRECT_URL = 'home'  # после выхода
+LOGIN_URL = '/users/login/'
 
 # Application definition
 

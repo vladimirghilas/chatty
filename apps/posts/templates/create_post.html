@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% block content %}
+<div style="max-width: 600px; margin: 50px auto; background: #fff; padding: 20px; border-radius: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <h2 class="mb-4">Создать новый пост</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.title.label_tag }}
+            {{ form.title }}
+        </div>
+        <div class="mb-3">
+            {{ form.content.label_tag }}
+            {{ form.content }}
+        </div>
+        <div class="mb-3">
+            {{ form.image.label_tag }}
+            {{ form.image }}
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Создать пост</button>
+    </form>
+</div>
+{% endblock %}

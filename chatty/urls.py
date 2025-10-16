@@ -25,4 +25,5 @@ urlpatterns = [
     path('users/', include('apps.users.urls')),  # подключаем urls из приложения users
     path('posts/', include('apps.posts.urls')),  # подключаем urls из приложения posts
     path('comments/', include('apps.comments.urls')),  # подключаем urls из приложения comments
+    path('accounts/', include('django.contrib.auth.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

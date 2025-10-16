@@ -17,9 +17,19 @@
         <h2 style="font-size: 22px; font-weight: 600; margin: 0;">Редактирование профиля</h2>
       </div>
 
-      <!-- Кнопка Назад — синяя -->
+      <!--  Кнопка Назад -->
       <a href="{% url 'users:profile_view' %}"
-         style="background-color: #1d4ed8; color: #fff; padding: 10px 26px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background-color 0.3s;">
+         style="
+           background-color: #2563eb;
+           color: #fff;
+           padding: 5px 26px;
+           border-radius: 8px;
+           font-weight: 600;
+           text-decoration: none;
+           transition: all 0.3s ease;
+         "
+         onmouseover="this.style.backgroundColor='#1e40af'"
+         onmouseout="this.style.backgroundColor='#2563eb'">
         Назад
       </a>
     </div>
@@ -48,9 +58,22 @@
         {{ form.contact }}
       </div>
 
-      <!-- Кнопка сохранить -->
+      <!-- Кнопка сохранить  -->
       <button type="submit"
-              style="width: 20%; align-self: center; background-color: #1d4ed8; color: #fff; font-weight: 100; padding: 5px 0; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s;">
+              style="
+                width: 30%;
+                align-self: center;
+                background-color: #3b82f6;
+                color: #fff;
+                font-weight: 400;
+                padding: 5px 0;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+              "
+              onmouseover="this.style.backgroundColor='#1d4ed8'"
+              onmouseout="this.style.backgroundColor='#3b82f6'">
         Сохранить изменения
       </button>
     </form>
