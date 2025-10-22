@@ -1,77 +1,96 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm fixed-top">
-  <div class="container">
-    <!-- Логотип -->
-    <a class="navbar-brand fw-bold" href="{% url 'home' %}">💬 Chatty</a>
+    <div class="container">
+        <!-- Логотип -->
+        <a class="navbar-brand fw-bold" href="{% url 'home' %}">💬 Chatty</a>
 
-    <!-- Кнопка для мобильного меню -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+{#        <!-- Кнопка для мобильного меню -->#}
+{#        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">#}
+{#            <span class="navbar-toggler-icon"></span>#}
+{#        </button>#}
 
-    <div class="collapse navbar-collapse" id="mainNavbar">
-      <!-- Левая часть меню -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">
-            <i class="bi bi-house-door"></i> Главная
-          </a>
-        </li>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <!-- Левая часть меню -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                       href="{% url 'home' %}">
+                        <i class="bi bi-house-door"></i> Главная
+                    </a>
+                </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/users/"><i class="bi bi-people"></i> Пользователи</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/posts/"><i class="bi bi-file-text"></i> Посты</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="bi bi-chat-dots"></i> Комментарии</a>
-        </li>
-      </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/">
+                        <i class="bi bi-people"></i> Пользователи
+                    </a>
+                </li>
 
-      <!-- Правая часть меню -->
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        {% if user.is_authenticated %}
-          <!-- Если пользователь вошёл -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
-              👤 {{ user.username }}
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end shadow">
-              <li>
-                <a class="dropdown-item" href="{% url 'users:profile_view' %}">
-                  <i class="bi bi-person-gear"></i> Профиль
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{% url 'users:profile_edit' %}">
-                  <i class="bi bi-pencil-square"></i> Редактировать
-                </a>
-              </li>
-              <li><hr class="dropdown-divider"></li>
-              <li>
-                <form method="post" action="{% url 'users:logout' %}">
-                  {% csrf_token %}
-                  <button type="submit" class="dropdown-item text-danger">
-                    <i class="bi bi-box-arrow-right"></i> Выйти
-                  </button>
-                </form>
-              </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/posts/">
+                        <i class="bi bi-file-text"></i> Посты
+                    </a>
+                </li>
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'posts:my_posts' %}">
+                            <i class="bi bi-journal-text"></i> Мои посты
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'posts:create_post' %}">
+                            <i class="bi bi-plus-circle"></i> Создать пост
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
-          </li>
-        {% else %}
-          <!-- Если пользователь не вошёл -->
-          <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'users:login' %}">
-              <i class="bi bi-box-arrow-in-right"></i> Вход
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'registration' %}active{% endif %}" href="{% url 'users:registration' %}">
-              <i class="bi bi-person-plus"></i> Регистрация
-            </a>
-          </li>
-        {% endif %}
-      </ul>
+
+            <!-- Правая часть меню -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {% if user.is_authenticated %}
+                    <!-- Dropdown с профилем -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
+                            👤 {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'users:profile_view' %}">
+                                    <i class="bi bi-person-gear"></i> Профиль
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'users:profile_edit' %}">
+                                    <i class="bi bi-pencil-square"></i> Редактировать
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="post" action="{% url 'users:logout' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="bi bi-box-arrow-right"></i> Выйти
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <!-- Если пользователь не вошёл -->
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}"
+                           href="{% url 'users:login' %}">
+                            <i class="bi bi-box-arrow-in-right"></i> Вход
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'registration' %}active{% endif %}"
+                           href="{% url 'users:registration' %}">
+                            <i class="bi bi-person-plus"></i> Регистрация
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>

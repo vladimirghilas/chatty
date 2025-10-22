@@ -1,0 +1,80 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>{{ pagename }}</h2>
+
+        <!-- Форма поиска -->
+        <form method="get" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Поиск по заголовку"
+                       value="{{ request.GET.q }}">
+                <button class="btn btn-primary" type="submit">Поиск</button>
+            </div>
+        </form>
+
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>Заголовок</th>
+                <th>Автор</th>
+                <th>Дата публикации</th>
+                <th>Просмотры</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.author.username }}</td>
+                    <td>{{ post.created_at|date:"d.m.Y H:i" }}</td>
+                    <td>{{ post.views_count }}</td>
+                    <td class="align-middle">
+                        <a href="{% url 'posts:post_detail' post.id %}"
+                           class="btn btn-sm btn-outline-primary py-0 px-1">Открыть</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">Постов нет</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- 🔹 PAGINATOR -->
+        {% if posts.has_other_pages %}
+            <nav aria-label="Навигация по постам">
+                <ul class="pagination justify-content-center">
+                    {% if posts.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="?q={{ request.GET.q }}&page={{ posts.previous_page_number }}">«</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">«</span></li>
+                    {% endif %}
+
+                    {% for num in posts.paginator.page_range %}
+                        {% if num == posts.number %}
+                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?q={{ request.GET.q }}&page={{ num }}">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if posts.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?q={{ request.GET.q }}&page={{ posts.next_page_number }}">»</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">»</span></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
+{% endblock %}

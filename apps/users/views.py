@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
@@ -6,12 +7,25 @@ from django.contrib.auth import login, authenticate
 from .forms import UserRegistrationForm, UserEditForm, ProfileForm
 from django.contrib import messages
 from .utils import send_activation_email, verify_activation_token
+from django.core.paginator import Paginator
+
 
 # Create your views here.
 
-def users_list(request):
-    users = User.objects.all()
-    return render(request, 'users/users_list.html', {'users': users})
+def users_list(request, number_of_users=5):
+    query = request.GET.get('q', '')
+    users_list = User.objects.all().order_by("username")
+    if query:
+        users_list = users_list.filter(Q(username__icontains=query) | Q(email__icontains=query))
+
+    paginator = Paginator(users_list, number_of_users)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'users': page_obj,
+        'query': query
+    }
+    return render(request, 'users/users_list.html', context)
 
 
 def user_registration(request):
@@ -51,15 +65,16 @@ def activate_account(request, user_id, token):
             user.is_active = True
             user.save()
             messages.success(request,
-                     'Ваш аккаунт успешно подтвержден! Теперь вы можете войти в систему.')
+                             'Ваш аккаунт успешно подтвержден! Теперь вы можете войти в систему.')
             return redirect('home')
         else:
             messages.error(request,
-                   'Недействительная ссылка для подтверждения. Возможно, она устарела.')
+                           'Недействительная ссылка для подтверждения. Возможно, она устарела.')
             return redirect('home')
     except User.DoesNotExist:
         messages.error(request, 'Пользователь не найден.')
         return redirect('home')
+
 
 def resend_activation(request):
     if request.method == 'GET':
@@ -76,6 +91,8 @@ def resend_activation(request):
         return redirect('home')
     else:
         raise Http404
+
+
 # def login_view(request):
 #     if request.method == 'POST':
 #         username = request.POST['username']
@@ -93,6 +110,7 @@ def resend_activation(request):
 def profile_view(request):
     profile = request.user.profile
     return render(request, 'users/profile_view.html', {'profile': profile})
+
 
 @login_required
 def profile_edit(request):
@@ -114,6 +132,8 @@ def profile_edit(request):
         'form': form,
         'profile': profile,
     })
+
+
 @login_required
 def edit_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
