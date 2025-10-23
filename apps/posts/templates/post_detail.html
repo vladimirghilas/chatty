@@ -2,54 +2,54 @@
 {% load static %}
 
 {% block style %}
-  {{ block.super }}
-{#  <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">#}
+    {{ block.super }}
+    {#  <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">#}
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-  <div class="card shadow-sm rounded-4 p-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h2 class="mb-0">{{ post.title }}</h2>
-      <span class="text-muted small">
+    <div class="container mt-5">
+        <div class="card shadow-sm rounded-4 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">{{ post.title }}</h2>
+                <span class="text-muted small">
         👁️ {{ post.views_count }}
       </span>
+            </div>
+
+            <p class="text-muted">
+                Автор:
+                <strong>{{ post.author.username }}</strong> |
+                {{ post.created_at|date:"d M Y, H:i" }}
+            </p>
+
+            {% if post.image %}
+                <div class="text-center mb-4">
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid rounded">
+                </div>
+            {% endif %}
+
+            <div class="content mb-4">
+                {{ post.content|linebreaks }}
+            </div>
+
+            {% if user == post.author %}
+                <div class="text-center mb-3">
+                    <a href="{% url 'posts:edit_post' post.id %}" class="btn btn-outline-primary btn-sm">✏️
+                        Редактировать</a>
+                    <a href="{% url 'posts:delete_post' post.id %}" class="btn btn-outline-danger btn-sm">🗑️ Удалить</a>
+                </div>
+            {% endif %}
+
+            <div class="text-center">
+                <a href="{% url 'posts:posts_list' %}" class="btn btn-secondary btn-sm">
+                    ← Назад к постам
+                </a>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <h4>Комментарии</h4>
+        {#  {% include "comments/comment_section.html" %}#}
     </div>
-
-    <p class="text-muted">
-      Автор:
-      <strong>{{ post.author.username }}</strong> |
-      {{ post.created_at|date:"d M Y, H:i" }}
-    </p>
-
-    {% if post.image %}
-      <div class="text-center mb-4">
-        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid rounded">
-      </div>
-    {% endif %}
-
-    <div class="content mb-4">
-      {{ post.content|linebreaks }}
-    </div>
-
-    {% if user == post.author %}
-      <div class="text-center mb-3">
-        <a href="{% url 'posts:create_post' %}?edit={{ post.id }}" class="btn btn-outline-primary btn-sm">
-          ✏️ Редактировать
-        </a>
-      </div>
-    {% endif %}
-
-    <div class="text-center">
-      <a href="{% url 'posts:posts_list' %}" class="btn btn-secondary btn-sm">
-        ← Назад к постам
-      </a>
-    </div>
-  </div>
-
-  <hr class="my-5">
-
-  <h4>Комментарии</h4>
-{#  {% include "comments/comment_section.html" %}#}
-</div>
 {% endblock %}

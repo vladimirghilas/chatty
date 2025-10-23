@@ -24,16 +24,17 @@ def posts_list(request, my_posts=None, number_of_posts=5):
     else:
         pagename = "Просмотр постов"
         if request.user.is_authenticated:
-            posts_list = Post.objects.filter(Q(public=True) | Q(public=False, author=request.user)).select_related("author")
+            posts_list = Post.objects.filter(Q(public=True) | Q(public=False, author=request.user)).select_related(
+                "author")
         else:
             posts_list = Post.objects.filter(public=True).select_related("author")
 
     if query:
         posts_list = posts_list.filter(Q(title__icontains=query) | Q(content__icontains=query))
 
-    paginator = Paginator(posts_list.select_related("author"),number_of_posts)
-    page_number= request.GET.get("page")
-    posts=paginator.get_page(page_number)
+    paginator = Paginator(posts_list.select_related("author"), number_of_posts)
+    page_number = request.GET.get("page")
+    posts = paginator.get_page(page_number)
     context = {
         'pagename': pagename,
         'posts': posts,
@@ -41,23 +42,65 @@ def posts_list(request, my_posts=None, number_of_posts=5):
     }
     return render(request, 'posts_list.html', context)
 
+
 @login_required
 def create_post(request):
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
+        form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
+            new_post = form.save(commit=False)
+            new_post.author = request.user
+            new_post.save()
             messages.success(request, "Пост успешно создан")
-            return redirect('posts:post_detail', post_id=post.id)
+            return redirect('posts:post_detail', post_id=new_post.id)
     else:
         form = PostForm()
+    context = {
+        'pagename': "Создать новый пост",
+        'form': form,
+    }
+    return render(request, 'create_post.html', context)
 
-    return render(request, 'create_post.html', {'form': form})
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     post.views_count += 1
     post.save(update_fields=['views_count'])
     return render(request, 'post_detail.html', {'post': post})
+
+
+@login_required
+def edit_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if post.author != request.user:
+        raise PermissionDenied
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            print(f"post_id = {post_id!r}")
+            form.save()
+            return redirect('posts:post_detail', post.id)
+    else:
+        form = PostForm(instance=post)
+
+    context = {
+        'pagename': "Редактировать пост",
+        'form': form,
+        'post': post,
+    }
+
+    return render(request, 'edit_post.html', context)
+
+
+@login_required
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if post.author != request.user:
+        raise PermissionDenied
+
+    if request.method == 'POST':
+        post.delete()
+        return redirect('posts:posts_list')
+
+    return render(request, 'post_delete.html', {'post': post})

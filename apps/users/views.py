@@ -11,30 +11,13 @@ from django.core.paginator import Paginator
 
 
 # Create your views here.
-
-def users_list(request, number_of_users=5):
-    query = request.GET.get('q', '')
-    users_list = User.objects.all().order_by("username")
-    if query:
-        users_list = users_list.filter(Q(username__icontains=query) | Q(email__icontains=query))
-
-    paginator = Paginator(users_list, number_of_users)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    context = {
-        'users': page_obj,
-        'query': query
-    }
-    return render(request, 'users/users_list.html', context)
-
-
 def user_registration(request):
     if request.method == 'GET':
         form = UserRegistrationForm()
         context = {
             'form': form
         }
-        return render(request, 'users/registration.html', context)
+        return render(request, 'registration.html', context)
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
@@ -48,7 +31,7 @@ def user_registration(request):
             context = {
                 'form': form
             }
-        return render(request, 'users/registration.html', context)
+        return render(request, 'registration.html', context)
 
 
 def activate_account(request, user_id, token):
@@ -78,7 +61,7 @@ def activate_account(request, user_id, token):
 
 def resend_activation(request):
     if request.method == 'GET':
-        return render(request, 'users/resend_email.html')
+        return render(request, 'resend_email.html')
     elif request.method == 'POST':
         email = request.POST.get('email')
         # TODO:
@@ -93,45 +76,55 @@ def resend_activation(request):
         raise Http404
 
 
-# def login_view(request):
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         password = request.POST['password']
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             messages.success(request, f'Добро пожаловать, {user.username}!')
-#             return redirect('home')
-#         else:
-#             messages.error(request, 'Неверное имя пользователя или пароль!')
-#     return render(request, 'users/login.html')
+def users_list(request, number_of_users=5):
+    query = request.GET.get('q', '')
+    users_list = User.objects.all().order_by("username")
+    if query:
+        users_list = users_list.filter(Q(username__icontains=query) | Q(email__icontains=query))
+
+    paginator = Paginator(users_list, number_of_users)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'users': page_obj,
+        'query': query
+    }
+    return render(request, 'users_list.html', context)
+
 
 @login_required
 def profile_view(request):
     profile = request.user.profile
-    return render(request, 'users/profile_view.html', {'profile': profile})
+    return render(request, 'profile_view.html', {'profile': profile})
 
 
 @login_required
 def profile_edit(request):
     profile = request.user.profile  # получаем профиль текущего пользователя
-
+    user = request.user
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            form.save()
+        profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
+        user_form = UserEditForm(request.POST, request.FILES, instance=user)
+        if profile_form.is_valid() and user_form.is_valid():
+            profile_form.save()
+            user_form.save()
             messages.success(request, "Профиль успешно обновлён")
+            return redirect('users:profile_edit')
         else:
             messages.error(request, "Ошибка при обновлении профиля")
     else:
         # Важно: при GET-запросе передаём instance=profile
-        form = ProfileForm(instance=profile)
+        profile_form = ProfileForm(instance=profile)
+        user_form = UserEditForm(instance=user)
 
-    # Передаём profile в контекст, чтобы шаблон мог показать аватар
-    return render(request, 'users/profile_edit.html', {
-        'form': form,
-        'profile': profile,
-    })
+    context = {
+        'pagename': "Редактирование профиля",
+        'profile_form': profile_form,
+        'user_form': user_form,
+        'profile': profile
+        }
+        # Передаём profile в контекст, чтобы шаблон мог показать аватар
+    return render(request, 'profile_edit.html', context)
 
 
 @login_required
@@ -147,7 +140,7 @@ def edit_user(request, user_id):
             messages.error(request, 'Форма содержит ошибки!')
     else:
         form = UserEditForm(instance=user)
-    return render(request, 'users/edit_user.html', {'form': form, 'user': user})
+    return render(request, 'edit_user.html', {'form': form, 'user': user})
 
 
 @login_required
@@ -157,4 +150,4 @@ def delete_user(request, user_id):
         user.delete()
         messages.success(request, f'Пользователь {user.username} удален!')
         return redirect('users_list')
-    return render(request, 'users/confirm_delete.html', {'user': user})
+    return render(request, 'confirm_delete.html', {'user': user})

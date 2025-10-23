@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container mt-5 text-center">
+  <h2>Удалить пост?</h2>
+  <p>Вы уверены, что хотите удалить пост <strong>"{{ post.title }}"</strong>?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Да, удалить</button>
+    <a href="{% url 'posts:post_detail' post.id %}" class="btn btn-secondary">Отмена</a>
+  </form>
+</div>
+{% endblock %}

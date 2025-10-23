@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm fixed-top">
     <div class="container">
         <!-- Логотип -->
-        <a class="navbar-brand fw-bold" href="{% url 'home' %}">💬 Chatty</a>
+        <a class="navbar-brand fw-bold" href="{% url 'core:home' %}">💬 Chatty</a>
 
 {#        <!-- Кнопка для мобильного меню -->#}
 {#        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">#}
@@ -13,7 +13,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
-                       href="{% url 'home' %}">
+                       href="{% url 'core:home' %}">
                         <i class="bi bi-house-door"></i> Главная
                     </a>
                 </li>

@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>{{ pagename }}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">💾 Сохранить</button>
+        <a href="{% url 'posts:post_detail' post.id %}" class="btn btn-secondary">Назад</a>
+    </form>
+</div>
+{% endblock %}
