@@ -1,11 +1,10 @@
-from IPython.core.release import author
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models.query_utils import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm
-from .models import Post, User
+from .forms import PostForm, CommentForm
+from .models import Post, User, Comment
 from django.contrib import messages
 
 
@@ -66,7 +65,12 @@ def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     post.views_count += 1
     post.save(update_fields=['views_count'])
-    return render(request, 'post_detail.html', {'post': post})
+    comment_form = CommentForm()
+    context = {
+        'post': post,
+        'form': comment_form,
+    }
+    return render(request, 'post_detail.html', context)
 
 
 @login_required
@@ -104,3 +108,42 @@ def delete_post(request, post_id):
         return redirect('posts:posts_list')
 
     return render(request, 'post_delete.html', {'post': post})
+
+# CREATE comment
+@login_required
+def add_comment(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():  # <- важно, форма должна быть валидной
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()  # <- без этого комментарий не сохранится
+            messages.success(request, 'Комментарий добавлен!')
+        else:
+            messages.error(request, 'Ошибка при добавлении комментария!')
+
+        return redirect('posts:post_detail', post_id=post.id)
+
+    return redirect('posts:post_detail', post_id=post.id)
+
+
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+
+    # Проверяем, является ли пользователь автором комментария или администратором
+    if request.user != comment.author and not request.user.is_superuser:
+        messages.error(request, "У вас нет прав для удаления этого комментария.")
+        return redirect('posts:posts_list')  # или на страницу поста
+
+    if request.method == 'POST':
+        comment.delete()
+        messages.success(request, "Комментарий успешно удалён.")
+        return redirect('posts:posts_list')  # или на страницу поста
+
+    # страница подтверждения удаления
+    return render(request, 'post_detail.html', {'comment': comment})

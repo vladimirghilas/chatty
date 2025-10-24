@@ -93,9 +93,15 @@ def users_list(request, number_of_users=5):
 
 
 @login_required
-def profile_view(request):
-    profile = request.user.profile
-    return render(request, 'profile_view.html', {'profile': profile})
+def profile_view(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = user.profile
+    context = {
+        'user': user,
+        'profile': profile
+    }
+
+    return render(request, 'profile_view.html', context)
 
 
 @login_required

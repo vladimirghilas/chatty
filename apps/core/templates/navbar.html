@@ -51,11 +51,11 @@
                     <!-- Dropdown с профилем -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
-                            👤 {{ user.username }}
+                            👤 {{ request.user.username }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow">
                             <li>
-                                <a class="dropdown-item" href="{% url 'users:profile_view' %}">
+                                <a class="dropdown-item" href="{% url 'users:profile_view' user.id %}">
                                     <i class="bi bi-person-gear"></i> Профиль
                                 </a>
                             </li>

@@ -14,7 +14,7 @@ urlpatterns = [
     path('resend-activation/', views.resend_activation, name='resend_activation'),
     path('edit/<int:user_id>/', views.edit_user, name='edit_user'),
     path('delete/<int:user_id>/', views.delete_user, name='delete_user'),
-    path('profile/', views.profile_view, name='profile_view'),
+    path('profile/<int:user_id>/', views.profile_view, name='profile_view'),
     path('profile/edit/', views.profile_edit, name='profile_edit'),
     # Password reset
     path(

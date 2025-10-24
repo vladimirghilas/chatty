@@ -1,14 +1,8 @@
-{% extends "core/base.html" %}
+{% extends "base.html" %}
 {% load static %}
-
-{% block style %}
-    {{ block.super }}
-    {#  <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">#}
-{% endblock %}
-
 {% block content %}
-    <div class="container mt-5">
-        <div class="card shadow-sm rounded-4 p-4">
+    <div class="container">
+        <div class="card shadow-sm rounded-3 p-2">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="mb-0">{{ post.title }}</h2>
                 <span class="text-muted small">
@@ -33,23 +27,60 @@
             </div>
 
             {% if user == post.author %}
+                <div class="d-flex justify-content-center gap-2 mb-3">
+                    <a href="{% url 'posts:edit_post' post.id %}" class="btn btn-outline-primary btn-sm">
+                        ✏️ Редактировать
+                    </a>
+                    <a href="{% url 'posts:delete_post' post.id %}" class="btn btn-outline-danger btn-sm">
+                        🗑️ Удалить
+                    </a>
+                    <a href="{% url 'posts:posts_list' %}" class="btn btn-secondary btn-sm">
+                        ← Назад к постам
+                    </a>
+                </div>
+            {% else %}
                 <div class="text-center mb-3">
-                    <a href="{% url 'posts:edit_post' post.id %}" class="btn btn-outline-primary btn-sm">✏️
-                        Редактировать</a>
-                    <a href="{% url 'posts:delete_post' post.id %}" class="btn btn-outline-danger btn-sm">🗑️ Удалить</a>
+                    <a href="{% url 'posts:posts_list' %}" class="btn btn-secondary btn-sm">
+                        ← Назад к постам
+                    </a>
                 </div>
             {% endif %}
-
-            <div class="text-center">
-                <a href="{% url 'posts:posts_list' %}" class="btn btn-secondary btn-sm">
-                    ← Назад к постам
-                </a>
-            </div>
+            {% if user.is_authenticated %}
+                <div class="mt-3">
+                    <form method="post" action="{% url 'posts:add_comment' post.id %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-sm btn-primary mt-2">Добавить комментарий</button>
+                    </form>
+                </div>
+            {% else %}
+                <p class="text-muted mt-2">Войдите, чтобы добавить комментарий.</p>
+            {% endif %}
         </div>
 
-        <hr class="my-5">
-
         <h4>Комментарии</h4>
-        {#  {% include "comments/comment_section.html" %}#}
+        <div class="comments mt-0 mb-3">
+            {% for comment in post.comments.all %}
+                <div id="comment-{{ comment.id }}"
+                     class="border-top pt-2 mt-2 d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ comment.author.username }}</strong>: {{ comment.content }}
+                        <span class="text-muted small">{{ comment.created_at|date:"d M Y H:i" }}</span>
+                    </div>
+
+                    {% if request.user == comment.author or request.user.is_superuser %}
+                        <form method="post" action="{% url 'posts:delete_comment' comment.id %}"
+                              style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" style="background:none; border:none; padding:0; cursor:pointer;">
+                                <i class="fas fa-trash text-danger"></i>
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p class="text-muted small">Нет комментариев</p>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

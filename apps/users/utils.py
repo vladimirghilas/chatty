@@ -22,10 +22,10 @@ def send_activation_email(user, request):
     }
 
     # Рендерим HTML версию письма
-    html_message = render_to_string('emails/templates/account_activation.html', context)
+    html_message = render_to_string('account_activation.html', context)
 
     # Рендерим текстовую версию письма
-    text_message = render_to_string('emails/templates/account_activation.txt', context)
+    text_message = render_to_string('account_activation.txt', context)
 
     # Отправляем email
     send_mail(
