@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Уведомления</h2>
+
+    {% if notifications %}
+        <ul>
+            {% for n in notifications %}
+                <li style="{% if not n.is_read %}font-weight:bold;{% endif %}">
+                    {{ n.created_at|date:"H:i d.m.Y" }} — {{ n.message }}
+                    {% if not n.is_read %}
+                        <a href="{% url 'posts:mark_read_notifications' notif_id=n.id %}">Отметить как прочитанное</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>У вас нет уведомлений.</p>
+    {% endif %}
+
+{% endblock %}

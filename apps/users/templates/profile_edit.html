@@ -19,7 +19,7 @@
                 <div class="col-md-6">
                     <h2 class="fw-semibold mb-1">{{ request.user.username }}</h2>
                 </div>
-                <a href="{% url 'users:profile_view' %}" class="btn btn-primary">Назад к профилю</a>
+                <a href="{% url 'users:profile_view' user.id %}" class="btn btn-primary">Назад к профилю</a>
             </div>
         </div>
 

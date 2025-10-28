@@ -3,7 +3,6 @@ from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
 from .forms import UserRegistrationForm, UserEditForm, ProfileForm
 from django.contrib import messages
 from .utils import send_activation_email, verify_activation_token
@@ -127,7 +126,8 @@ def profile_edit(request):
         'pagename': "Редактирование профиля",
         'profile_form': profile_form,
         'user_form': user_form,
-        'profile': profile
+        'profile': profile,
+        'user_id': user.id,
         }
         # Передаём profile в контекст, чтобы шаблон мог показать аватар
     return render(request, 'profile_edit.html', context)

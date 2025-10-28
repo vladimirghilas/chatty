@@ -1,12 +1,16 @@
+from datetime import datetime
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models.query_utils import Q
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm, CommentForm
-from .models import Post, User, Comment
+from .models import Post, User, Comment, Notification
 from django.contrib import messages
+import logging
 
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 def posts_list(request, my_posts=None, number_of_posts=5):
@@ -109,6 +113,7 @@ def delete_post(request, post_id):
 
     return render(request, 'post_delete.html', {'post': post})
 
+
 # CREATE comment
 @login_required
 def add_comment(request, post_id):
@@ -130,7 +135,6 @@ def add_comment(request, post_id):
     return redirect('posts:post_detail', post_id=post.id)
 
 
-
 @login_required
 def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
@@ -145,5 +149,62 @@ def delete_comment(request, comment_id):
         messages.success(request, "Комментарий успешно удалён.")
         return redirect('posts:posts_list')  # или на страницу поста
 
-    # страница подтверждения удаления
     return render(request, 'post_detail.html', {'comment': comment})
+
+
+@login_required
+def notifications_list(request):
+    notifications = Notification.objects.filter(recipient=request.user)
+    unread_count = Notification.objects.filter(recipient=request.user, is_read=False).count()
+    context = {
+        'notifications': notifications,
+        'unread_count': unread_count
+    }
+    return render(request, 'notifications.html', context)
+
+
+@login_required
+def mark_read_notifications(request, notif_id):
+    notification = get_object_or_404(Notification, id=notif_id, recipient=request.user)
+    notification.is_read = True
+    notification.save(update_fields=['is_read'])
+    post_id = notification.post.id
+    return redirect('posts:post_detail', post_id=post_id)
+
+
+@login_required
+def unread_notifications_count(request):
+    import time
+
+    max_wait_time = 10
+    check_interval = 1
+    last_count = int(request.GET.get('last_count', 0))
+    start_time = time.time()
+    unread_count = 0
+
+    while time.time() - start_time < max_wait_time:
+        unread_count = Notification.objects.filter(recipient=request.user, is_read=False).count()
+        logger.info(f"Unread: {unread_count}")
+        if unread_count > last_count:
+            return JsonResponse({
+                'success': True,
+                'unread_count': unread_count,
+                'timestamp': str(datetime.now())
+            })
+
+        time.sleep(check_interval)
+    return JsonResponse({
+        'success': True,
+        'unread_count': unread_count,
+        'timestamp': str(datetime.now())
+    })
+
+
+def is_authenticated(request):
+    if request.user.is_authenticated:
+        return JsonResponse({'is_authenticated': True})
+    else:
+        return JsonResponse({'is_authenticated': False})
+
+def add_comment_like(request):
+    ...

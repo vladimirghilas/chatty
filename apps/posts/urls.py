@@ -12,4 +12,8 @@ urlpatterns = [
     path('<int:post_id>/delete/', views.delete_post, name='delete_post'),
     path('<int:post_id>/comment/', views.add_comment, name='add_comment'),
     path('comment/<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
+    path('notifications/', views.notifications_list, name='notifications_list'),
+    path('notifications/read/<int:notif_id>', views.mark_read_notifications, name='mark_read_notifications'),
+    path('api/notifications/unread-count/', views.unread_notifications_count, name='unread_notifications_count'),
+    path('posts/api/is_authenticated/', views.is_authenticated, name='unread_notifications_count'),
 ]
