@@ -1,27 +1,51 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 
 {% block content %}
 <div style="max-width: 600px; margin: 50px auto; background: #fff; padding: 20px; border-radius: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
     <h2 class="mb-4">{{ pagename }}</h2>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+
+        <!-- Заголовок -->
         <div class="mb-3">
             {{ form.title.label_tag }}
-            {{ form.title }}
+            {{ form.title|add_class:"form-control" }}
         </div>
+
+        <!-- Контент с контролем ширины и высоты -->
         <div class="mb-3">
             {{ form.content.label_tag }}
-            {{ form.content }}
+            {{ form.content|add_class:"form-control" }}
+            <style>
+                textarea.form-control {
+                    max-width: 100%;
+                    width: 100%;
+                    min-height: 100px;
+                    resize: vertical; /* разрешаем изменение высоты */
+                }
+            </style>
         </div>
+
+        <!-- Изображение -->
         <div class="mb-3">
             {{ form.image.label_tag }}
+            {% if form.instance.image %}
+                <div class="mb-2">
+                    <img src="{{ form.instance.image.url }}" alt="Preview"
+                         class="rounded" style="width:150px; height:150px; object-fit:cover;">
+                </div>
+            {% endif %}
             {{ form.image }}
         </div>
-        <div class="mb-3">
-            {{ form.public.label_tag }}
+
+        <!-- Публичность поста -->
+        <div class="mb-3 form-check">
             {{ form.public }}
+            {{ form.public.label_tag }}
         </div>
-        <button type="submit" class="btn btn-primary w-100">Создать пост</button>
+
+        <button type="submit" class="btn btn-primary w-100">Сохранить изменения</button>
     </form>
 </div>
 {% endblock %}

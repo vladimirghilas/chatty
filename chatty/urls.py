@@ -22,7 +22,7 @@ from apps.core import views as core_views
 
 urlpatterns = [
     path('', include('apps.core.urls')),  # Home page
-    path('home/', core_views.home, name='home'),
+    path('home/', core_views.home_main, name='home'),
     path('admin/', admin.site.urls),
     path('users/', include('apps.users.urls')),  # подключаем urls из приложения users
     path('posts/', include('apps.posts.urls')),  # подключаем urls из приложения posts

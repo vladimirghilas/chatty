@@ -44,15 +44,6 @@
             <!-- Правая часть меню -->
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 {% if user.is_authenticated %}
-                    <!-- Dropdown с профилем -->
-                    {#                    <li class="nav-item">#}
-                    {#                        <a class="nav-link" id="notification" data-polling="true"#}
-                    {#                           href="{% url 'posts:notifications_list' %}">#}
-                    {#                            <i class="fas fa-bell"></i> Уведомления#}
-                    {#                            <span id="notification-count" class="badge bg-danger ms-1" data-polling="true">0</span>#}
-                    {##}
-                    {#                        </a>#}
-                    {#                    </li>#}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button"
                            data-bs-toggle="dropdown">

@@ -4,58 +4,57 @@
  * Сервер отвечает только если есть непрочитанные уведомления
  */
 
-// Глобальные переменные для состояния
-let isPolling = false;
-// let pollingInterval = null;
-let notificationCounter = document.getElementById('notification-count');
-let lastNotificationCount = 0;
+(() => {
+    // Variabile private pentru polling
+    let isPolling = false;
+    let lastNotificationCount = 0;
+    const BASE_URL = '/posts/api/notifications/unread-count';
 
-const BASE_URL = '/posts/api/notifications/unread-count';
+    // Selectăm elementul de notificări doar după ce DOM-ul e gata
+    function getNotificationCounter() {
+        return document.getElementById('notification-count');
+    }
 
-// Функция для запуска polling
-function startPolling() {
-    if (isPolling) return;
-    isPolling = true;
-    poll();
-}
+    // Start polling
+    function startPolling() {
+        if (isPolling) return;
+        isPolling = true;
+        poll();
+    }
 
-// Основная функция polling с использованием промисов
-function poll() {
-    if (!isPolling) return;
+    // Funcția principală de polling
+    function poll() {
+        if (!isPolling) return;
 
-    // Создаем промис для fetch запроса
-    fetch(`${BASE_URL}?last_count=${lastNotificationCount}`, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-        },
-    })
-        .then(function (response) {
-            return response.json();
+        const notificationCounter = getNotificationCounter();
+        if (!notificationCounter) return; // dacă elementul nu există, ieșim
+
+        fetch(`${BASE_URL}?last_count=${lastNotificationCount}`, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' }
         })
-        .then(function (data) {
+        .then(response => response.json())
+        .then(data => {
             if (data.success) {
                 notificationCounter.textContent = data.unread_count;
                 lastNotificationCount = data.unread_count;
             }
         })
-        .catch(function (error) {
+        .catch(error => {
             console.error('Ошибка при получении уведомлений:', error);
         })
-        .finally(function () {
-            // Продолжаем polling
+        .finally(() => {
             if (isPolling) {
-                setTimeout(function () {
-                    poll();
-                }, 1000);
+                setTimeout(poll, 1000);
             }
         });
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    let isAuth = document.getElementById('isAuth').textContent;
-    if (isAuth === 'True') {
-        startPolling();
     }
 
-});
+    // Inițializare după ce DOM-ul e gata
+    document.addEventListener('DOMContentLoaded', () => {
+        const isAuthElem = document.getElementById('isAuth');
+        if (isAuthElem && isAuthElem.textContent === 'True') {
+            startPolling();
+        }
+    });
+})();

@@ -1,16 +1,21 @@
+import json
+import time
 from datetime import datetime
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models.query_utils import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from .forms import PostForm, CommentForm
-from .models import Post, User, Comment, Notification
+from .models import Post, User, Comment, Notification, LikeDislike
 from django.contrib import messages
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 # Create your views here.
 def posts_list(request, my_posts=None, number_of_posts=5):
@@ -49,7 +54,7 @@ def posts_list(request, my_posts=None, number_of_posts=5):
 @login_required
 def create_post(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             new_post = form.save(commit=False)
             new_post.author = request.user
@@ -69,10 +74,12 @@ def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     post.views_count += 1
     post.save(update_fields=['views_count'])
+    comments = Comment.with_likes_count().filter(post=post)
     comment_form = CommentForm()
     context = {
         'post': post,
         'form': comment_form,
+        'comments': comments,
     }
     return render(request, 'post_detail.html', context)
 
@@ -165,10 +172,23 @@ def notifications_list(request):
 
 @login_required
 def mark_read_notifications(request, notif_id):
+    # Получаем уведомление для текущего пользователя
     notification = get_object_or_404(Notification, id=notif_id, recipient=request.user)
+
+    # Отмечаем уведомление как прочитанное
     notification.is_read = True
     notification.save(update_fields=['is_read'])
-    post_id = notification.post.id
+
+    # Получаем правильный post_id в зависимости от типа уведомления
+    if hasattr(notification, 'post') and notification.post:
+        post_id = notification.post.id
+    elif hasattr(notification, 'comment') and notification.comment:
+        post_id = notification.comment.post.id
+    else:
+        # fallback, если уведомление не связано с постом
+        return redirect('homepage')
+
+    # Редирект на страницу поста
     return redirect('posts:post_detail', post_id=post_id)
 
 
@@ -206,5 +226,40 @@ def is_authenticated(request):
     else:
         return JsonResponse({'is_authenticated': False})
 
+@login_required
+@require_POST
 def add_comment_like(request):
-    ...
+    try:
+        data = json.loads(request.body)
+        comment_id = data.get('comment_id')
+        vote = data.get('vote')  # 1 = like, -1 = dislike
+
+        comment = get_object_or_404(Comment, id=comment_id)
+        comment_type = ContentType.objects.get_for_model(Comment)
+
+        existing_vote, created = LikeDislike.objects.get_or_create(
+            user=request.user,
+            content_type=comment_type,
+            object_id=comment_id,
+            defaults={'vote': vote}
+        )
+
+        if not created:
+            if existing_vote.vote == vote:
+                existing_vote.delete()
+            else:
+                existing_vote.vote = vote
+                existing_vote.save()
+
+        comment_with_counts = Comment.with_likes_count().get(id=comment_id)
+
+        response_data = {
+            'success': True,
+            'likes_count': comment_with_counts.likes_count,
+            'dislikes_count': comment_with_counts.dislikes_count,
+        }
+        return JsonResponse(response_data)
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=400)
+

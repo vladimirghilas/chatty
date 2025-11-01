@@ -1,31 +1,34 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block content %}
     <div class="container">
-        <div class="card shadow-sm rounded-3 p-2">
+        <!-- Карточка поста -->
+        <div class="card shadow-sm rounded-3 p-3 mx-auto" style="max-width: 900px;">
+
+            <!-- Заголовок и просмотры -->
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="mb-0">{{ post.title }}</h2>
-                <span class="text-muted small">
-        👁️ {{ post.views_count }}
-      </span>
+                <span class="text-muted small">👁️ {{ post.views_count }}</span>
             </div>
 
-            <p class="text-muted">
-                Автор:
-                <strong>{{ post.author.username }}</strong> |
+            <!-- Автор и дата -->
+            <p class="text-muted mb-3">
+                Автор: <strong>{{ post.author.username }}</strong> |
                 {{ post.created_at|date:"d M Y, H:i" }}
             </p>
 
-            {% if post.image %}
-                <div class="text-center mb-4">
-                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid rounded">
+            <!-- Горизонтальный блок: изображение + контент -->
+            <div class="d-flex align-items-start mb-4 gap-3">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="rounded post-image">
+                {% endif %}
+                <div class="flex-grow-1" style="min-width: 0; word-wrap: break-word;">
+                    {{ post.content|linebreaks }}
                 </div>
-            {% endif %}
-
-            <div class="content mb-4">
-                {{ post.content|linebreaks }}
             </div>
 
+            <!-- Кнопки редактирования/удаления -->
             {% if user == post.author %}
                 <div class="d-flex justify-content-center gap-2 mb-3">
                     <a href="{% url 'posts:edit_post' post.id %}" class="btn btn-outline-primary btn-sm">
@@ -45,42 +48,80 @@
                     </a>
                 </div>
             {% endif %}
+
+            <!-- Форма добавления комментария -->
             {% if user.is_authenticated %}
                 <div class="mt-3">
                     <form method="post" action="{% url 'posts:add_comment' post.id %}">
                         {% csrf_token %}
-                        {{ form.as_p }}
+                        <div class="mb-2">
+                            {{ form.content.label_tag }}
+                            {{ form.content }}
+                            <style>
+                                textarea.form-control {
+                                    max-width: 100%;
+                                    width: 100%;
+                                    min-height: 80px;
+                                    resize: vertical;
+                                }
+                            </style>
+                        </div>
                         <button type="submit" class="btn btn-sm btn-primary mt-2">Добавить комментарий</button>
                     </form>
                 </div>
             {% else %}
                 <p class="text-muted mt-2">Войдите, чтобы добавить комментарий.</p>
             {% endif %}
-        </div>
 
-        <h4>Комментарии</h4>
-        <div class="comments mt-0 mb-3">
-            {% for comment in post.comments.all %}
-                <div id="comment-{{ comment.id }}"
-                     class="border-top pt-2 mt-2 d-flex justify-content-between align-items-center">
-                    <div>
-                        <strong>{{ comment.author.username }}</strong>: {{ comment.content }}
-                        <span class="text-muted small">{{ comment.created_at|date:"d M Y H:i" }}</span>
+            <!-- Список комментариев -->
+            <h4 class="mt-4">Комментарии</h4>
+            <div class="comments mt-2 mb-3">
+                {% for comment in comments %}
+                    <div id="comment-{{ comment.id }}"
+                         class="border-top pt-2 mt-2 d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{ comment.author.username }}</strong>: {{ comment.content }}
+                            <span class="text-muted small">{{ comment.created_at|date:"d M Y H:i" }}</span>
+                        </div>
+                        {% if request.user == comment.author or request.user.is_superuser %}
+                            <form method="post" action="{% url 'posts:delete_comment' comment.id %}"
+                                  style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" style="background:none; border:none; padding:0; cursor:pointer;">
+                                    <i class="fas fa-trash text-danger"></i>
+                                </button>
+                            </form>
+                        {% endif %}
                     </div>
+                    <div>
+                        <button class="btn btn-sm btn-outline-success me-1 btn-like" data-comment-id="{{ comment.id }}">
+                            <i class="fa-solid fa-thumbs-up"></i> Like
+                        </button>
+                        <span class="badge bg-success me-2"
+                              id="likes-{{ comment.id }}">{{ comment.likes_count|default:0 }}</span>
+                        <button class="btn btn-sm btn-outline-danger me-1 btn-dislike"
+                                data-comment-id="{{ comment.id }}">
+                            <i class="fa-solid fa-thumbs-down"></i> Dislike
+                        </button>
+                        <span class="badge bg-danger"
+                              id="dislikes-{{ comment.id }}">{{ comment.dislikes_count|default:0 }}</span>
+                    </div>
+                {% endfor %}
+            </div>
 
-                    {% if request.user == comment.author or request.user.is_superuser %}
-                        <form method="post" action="{% url 'posts:delete_comment' comment.id %}"
-                              style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" style="background:none; border:none; padding:0; cursor:pointer;">
-                                <i class="fas fa-trash text-danger"></i>
-                            </button>
-                        </form>
-                    {% endif %}
-                </div>
-            {% empty %}
-                <p class="text-muted small">Нет комментариев</p>
-            {% endfor %}
         </div>
     </div>
+
+    <style>
+        .post-image {
+            width: 230px;
+            height: 210px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
+{% endblock %}
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'js/like_dislike_comment.js' %}"></script>
 {% endblock %}
