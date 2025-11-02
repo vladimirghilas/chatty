@@ -41,8 +41,8 @@ class Post(models.Model):
     @classmethod
     def with_likes_count(cls):
         return cls.objects.annotate(
-            likes_count=models.Count('likes', filter=models.Q(likes__vote=LikeDislike.LIKE)),
-            dislikes_count=models.Count('likes', filter=models.Q(likes__vote=LikeDislike.DISLIKE))
+            likes_count=models.Count('likes', filter=models.Q(likes__vote=LikeDislike.LIKE), distinct=True),
+            dislikes_count=models.Count('likes', filter=models.Q(likes__vote=LikeDislike.DISLIKE), distinct=True)
         )
 
     def __str__(self):

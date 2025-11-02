@@ -17,4 +17,5 @@ urlpatterns = [
     path('api/notifications/unread-count/', views.unread_notifications_count, name='unread_notifications_count'),
     path('api/is_authenticated/', views.is_authenticated, name='unread_notifications_count'),
     path('api/comment/like/', views.add_comment_like, name='comment_like'),
+    path('api/post/like/', views.add_post_like, name='post_like'),
 ]

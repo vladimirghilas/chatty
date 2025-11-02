@@ -1,10 +1,9 @@
 import json
-import time
 from datetime import datetime
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
-from django.db.models.query_utils import Q
+from django.db.models import Q, F
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -71,9 +70,10 @@ def create_post(request):
 
 
 def post_detail(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-    post.views_count += 1
+    post = get_object_or_404(Post.with_likes_count(), id=post_id)
+    post.views_count = F('views_count') + 1
     post.save(update_fields=['views_count'])
+    post.refresh_from_db(fields=['views_count'])
     comments = Comment.with_likes_count().filter(post=post)
     comment_form = CommentForm()
     context = {
@@ -262,4 +262,42 @@ def add_comment_like(request):
 
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)}, status=400)
+
+@require_POST
+@login_required
+def add_post_like(request):
+    try:
+        data = json.loads(request.body)
+        post_id = data.get('post_id')
+        vote = data.get('vote')
+
+        post = Post.objects.get(id=post_id)
+        content_type=ContentType.objects.get_for_model(Post)
+
+        existing_vote, created = LikeDislike.objects.get_or_create(
+            user=request.user,
+            content_type=content_type,
+            object_id=post_id,
+            defaults={'vote': vote}
+        )
+
+        if not created:
+            if existing_vote.vote == vote:
+                existing_vote.delete()
+            else:
+                existing_vote.vote = vote
+                existing_vote.save()
+
+        post_like_counts = Post.with_likes_count().get(id=post_id)
+
+        response_data = {
+            'success': True,
+            'likes_count': post_like_counts.likes_count,
+            'dislikes_count': post_like_counts.dislikes_count
+        }
+        return JsonResponse(response_data)
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=400)
+
 
