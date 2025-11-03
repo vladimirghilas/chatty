@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from .forms import PostForm, CommentForm
-from .models import Post, User, Comment, Notification, LikeDislike
+from .models import Post, User, Comment, Notification, LikeDislike, Subscription
 from django.contrib import messages
 import logging
 
@@ -69,17 +69,27 @@ def create_post(request):
     return render(request, 'create_post.html', context)
 
 
-def post_detail(request, post_id):
+def post_detail(request, post_id, number_of_comments=2):
     post = get_object_or_404(Post.with_likes_count(), id=post_id)
     post.views_count = F('views_count') + 1
     post.save(update_fields=['views_count'])
     post.refresh_from_db(fields=['views_count'])
-    comments = Comment.with_likes_count().filter(post=post)
+    comments_list = Comment.with_likes_count().filter(post=post)
     comment_form = CommentForm()
+    subscribed_ids = []
+    if request.user.is_authenticated:
+        subscribed_ids = request.user.subscriptions.all().values_list('subscribed_to', flat=True)
+
+    paginator = Paginator(comments_list, number_of_comments)
+    page_number = request.GET.get('page')
+    comments = paginator.get_page(page_number)
+
     context = {
         'post': post,
         'form': comment_form,
         'comments': comments,
+        'subscribed_ids': subscribed_ids,
+
     }
     return render(request, 'post_detail.html', context)
 
@@ -226,6 +236,7 @@ def is_authenticated(request):
     else:
         return JsonResponse({'is_authenticated': False})
 
+
 @login_required
 @require_POST
 def add_comment_like(request):
@@ -263,6 +274,7 @@ def add_comment_like(request):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
+
 @require_POST
 @login_required
 def add_post_like(request):
@@ -272,7 +284,7 @@ def add_post_like(request):
         vote = data.get('vote')
 
         post = Post.objects.get(id=post_id)
-        content_type=ContentType.objects.get_for_model(Post)
+        content_type = ContentType.objects.get_for_model(Post)
 
         existing_vote, created = LikeDislike.objects.get_or_create(
             user=request.user,
@@ -301,3 +313,30 @@ def add_post_like(request):
         return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
 
+@login_required
+def toggle_subscription(request, user_id):
+    """Подписка / отписка на пользователя"""
+    target_user = get_object_or_404(User, id=user_id)
+
+    if target_user == request.user:
+        return redirect('posts:feed')
+
+    subscription, created = Subscription.objects.get_or_create(
+        user=request.user, subscribed_to=target_user
+    )
+
+    if not created:
+        subscription.delete()  # отписка
+
+    return redirect('posts:feed')
+
+
+@login_required
+def feed_view(request):
+    followers = User.objects.filter(subscriptions__subscribed_to=request.user).distinct()
+    subscriptions = User.objects.filter(followers__user=request.user).distinct()
+
+    return render(request, "feed.html", {
+        "followers": followers,  # кто на меня подписан
+        "subscriptions": subscriptions  # на кого я подписан
+    })

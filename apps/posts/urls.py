@@ -18,4 +18,6 @@ urlpatterns = [
     path('api/is_authenticated/', views.is_authenticated, name='unread_notifications_count'),
     path('api/comment/like/', views.add_comment_like, name='comment_like'),
     path('api/post/like/', views.add_post_like, name='post_like'),
+    path('feed/', views.feed_view, name='feed'),
+    path('subscribe/<int:user_id>/', views.toggle_subscription, name='toggle_subscription'),
 ]

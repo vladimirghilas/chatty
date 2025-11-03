@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from .models import Comment, Post, Notification, LikeDislike
+from .models import Comment, Post, Notification, LikeDislike, Subscription
 from .utils import create_notification
 
 
@@ -66,3 +66,17 @@ def create_like_notification(sender, instance, created, **kwargs):
                 message=f"{instance.user.username} поставил(а) лайк вашему посту: {obj.title}",
                 post=obj
             )
+
+@receiver(post_save, sender=Subscription)
+def create_subscription_notification(sender, instance, created, **kwargs):
+    """
+    Создает уведомление, когда кто-то подписывается на пользователя.
+    """
+    if created:
+        Notification.objects.create(
+            recipient=instance.subscribed_to,  # кому отправляем уведомление
+            sender=instance.user,             # кто подписался
+            notification_type='subscription', # нужно добавить этот тип в модель
+            title="Новая подписка",
+            message=f"{instance.user.username} подписался на вас!"
+        )

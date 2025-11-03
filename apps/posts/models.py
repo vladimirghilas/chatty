@@ -70,7 +70,8 @@ class Comment(models.Model):
 class Notification(models.Model):
     NOTIFICATION_TYPE = (
         ('like', 'New like'),
-        ('comment', "New comment")
+        ('comment', "New comment"),
+        ('subscription', "New subscription")
     )
 
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
@@ -88,3 +89,19 @@ class Notification(models.Model):
 
     def __str__(self):
         return f'{self.notification_type} to {self.recipient.username} from {self.sender.username}'
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="subscriptions"
+    )
+    subscribed_to = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="followers"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ["user", "subscribed_to"]
+
+    def __str__(self):
+        return f"{self.user.username} подписан на {self.subscribed_to.username}"
