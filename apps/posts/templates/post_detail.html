@@ -21,7 +21,7 @@
 
                 <!-- Кнопка подписки/отписки -->
                 {% if user.is_authenticated and user != post.author %}
-                    <form method="post" action="{% url 'posts:toggle_subscription' post.author.id %}"
+                    <form method="post" action="{% url 'posts:toggle_subscription' post.author.id post.id%}"
                           style="display:inline;">
                         {% csrf_token %}
                         {% if post.author.id in subscribed_ids %}

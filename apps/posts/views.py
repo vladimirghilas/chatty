@@ -314,12 +314,12 @@ def add_post_like(request):
 
 
 @login_required
-def toggle_subscription(request, user_id):
+def toggle_subscription(request, user_id, post_id):
     """Подписка / отписка на пользователя"""
     target_user = get_object_or_404(User, id=user_id)
 
     if target_user == request.user:
-        return redirect('posts:feed')
+        return redirect('posts:post_detail', post_id=post_id)
 
     subscription, created = Subscription.objects.get_or_create(
         user=request.user, subscribed_to=target_user
@@ -328,7 +328,7 @@ def toggle_subscription(request, user_id):
     if not created:
         subscription.delete()  # отписка
 
-    return redirect('posts:feed')
+    return redirect('posts:post_detail', post_id=post_id)
 
 
 @login_required

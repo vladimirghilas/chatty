@@ -54,6 +54,7 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     content = models.TextField(verbose_name="Текст комментария")
     created_at = models.DateTimeField(auto_now_add=True)
+    is_approved = models.BooleanField(default=True)
     likes = GenericRelation(LikeDislike)
 
     @classmethod
