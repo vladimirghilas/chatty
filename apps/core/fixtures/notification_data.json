@@ -1,0 +1,2222 @@
+[
+{
+    "model": "posts.notification",
+    "pk": 1,
+    "fields": {
+        "recipient": 1,
+        "sender": 4,
+        "notification_type": "comment",
+        "title": null,
+        "post": 10,
+        "comment": 9,
+        "message": "user3 оставил комментарий к вашему посту: Как я начал изучать Django",
+        "is_read": true,
+        "created_at": "2025-10-27T19:15:32.259Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 2,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "comment",
+        "title": null,
+        "post": 10,
+        "comment": 10,
+        "message": "user2 оставил комментарий к вашему посту: Как я начал изучать Django",
+        "is_read": true,
+        "created_at": "2025-10-27T19:26:57.646Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 3,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "comment",
+        "title": null,
+        "post": 9,
+        "comment": 11,
+        "message": "user2 оставил комментарий к вашему посту: author",
+        "is_read": true,
+        "created_at": "2025-10-27T21:39:46.559Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 4,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "comment",
+        "title": null,
+        "post": 9,
+        "comment": 12,
+        "message": "user2 оставил комментарий к вашему посту: author",
+        "is_read": true,
+        "created_at": "2025-10-27T21:43:12.845Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 5,
+    "fields": {
+        "recipient": 3,
+        "sender": 1,
+        "notification_type": "comment",
+        "title": null,
+        "post": 8,
+        "comment": 15,
+        "message": "admin оставил комментарий к вашему посту: testuser2",
+        "is_read": false,
+        "created_at": "2025-10-28T12:17:44.147Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 6,
+    "fields": {
+        "recipient": 3,
+        "sender": 1,
+        "notification_type": "comment",
+        "title": null,
+        "post": 8,
+        "comment": 16,
+        "message": "admin оставил комментарий к вашему посту: testuser2",
+        "is_read": false,
+        "created_at": "2025-10-28T12:35:42.696Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 7,
+    "fields": {
+        "recipient": 3,
+        "sender": 1,
+        "notification_type": "comment",
+        "title": null,
+        "post": 8,
+        "comment": 17,
+        "message": "admin оставил комментарий к вашему посту: testuser2",
+        "is_read": false,
+        "created_at": "2025-10-28T12:54:10.708Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 8,
+    "fields": {
+        "recipient": 3,
+        "sender": 1,
+        "notification_type": "comment",
+        "title": null,
+        "post": 8,
+        "comment": 18,
+        "message": "admin оставил комментарий к вашему посту: testuser2",
+        "is_read": false,
+        "created_at": "2025-10-28T12:58:42.118Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 9,
+    "fields": {
+        "recipient": 3,
+        "sender": 1,
+        "notification_type": "comment",
+        "title": null,
+        "post": 8,
+        "comment": 19,
+        "message": "admin оставил комментарий к вашему посту: testuser2",
+        "is_read": false,
+        "created_at": "2025-10-28T13:01:24.111Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 10,
+    "fields": {
+        "recipient": 3,
+        "sender": 1,
+        "notification_type": "comment",
+        "title": null,
+        "post": 8,
+        "comment": 20,
+        "message": "admin оставил комментарий к вашему посту: testuser2",
+        "is_read": true,
+        "created_at": "2025-10-28T15:15:14.279Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 11,
+    "fields": {
+        "recipient": 3,
+        "sender": 1,
+        "notification_type": "comment",
+        "title": null,
+        "post": 8,
+        "comment": 21,
+        "message": "admin оставил комментарий к вашему посту: testuser2",
+        "is_read": true,
+        "created_at": "2025-10-28T15:19:22.092Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 12,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "comment",
+        "title": null,
+        "post": 11,
+        "comment": 22,
+        "message": "user2 оставил комментарий к вашему посту: qwe",
+        "is_read": true,
+        "created_at": "2025-10-28T15:40:58.318Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 13,
+    "fields": {
+        "recipient": 3,
+        "sender": 1,
+        "notification_type": "comment",
+        "title": null,
+        "post": 5,
+        "comment": 23,
+        "message": "admin оставил комментарий к вашему посту: user1",
+        "is_read": true,
+        "created_at": "2025-10-28T15:42:44.905Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 14,
+    "fields": {
+        "recipient": 1,
+        "sender": 2,
+        "notification_type": "comment",
+        "title": null,
+        "post": 10,
+        "comment": 24,
+        "message": "user1 оставил комментарий к вашему посту: Как я начал изучать Django",
+        "is_read": true,
+        "created_at": "2025-10-28T16:57:04.574Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 15,
+    "fields": {
+        "recipient": 3,
+        "sender": 2,
+        "notification_type": "comment",
+        "title": null,
+        "post": 8,
+        "comment": 25,
+        "message": "user1 оставил комментарий к вашему посту: testuser2",
+        "is_read": true,
+        "created_at": "2025-10-28T16:57:24.071Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 16,
+    "fields": {
+        "recipient": 1,
+        "sender": 2,
+        "notification_type": "comment",
+        "title": null,
+        "post": 11,
+        "comment": 26,
+        "message": "user1 оставил комментарий к вашему посту: qwe",
+        "is_read": true,
+        "created_at": "2025-10-28T16:58:09.238Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 17,
+    "fields": {
+        "recipient": 1,
+        "sender": 7,
+        "notification_type": "comment",
+        "title": null,
+        "post": 25,
+        "comment": 31,
+        "message": "user6 оставил комментарий к вашему посту: Тестовая публикация",
+        "is_read": true,
+        "created_at": "2025-10-29T14:22:21.307Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 18,
+    "fields": {
+        "recipient": 1,
+        "sender": 6,
+        "notification_type": "comment",
+        "title": null,
+        "post": 25,
+        "comment": 35,
+        "message": "user5 оставил комментарий к вашему посту: Тестовая публикация",
+        "is_read": true,
+        "created_at": "2025-11-01T21:13:07.305Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 19,
+    "fields": {
+        "recipient": 1,
+        "sender": 15,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 29,
+        "message": "поставил лайк вашему комментарию",
+        "is_read": true,
+        "created_at": "2025-11-01T22:21:45.716Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 20,
+    "fields": {
+        "recipient": 1,
+        "sender": 15,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 29,
+        "message": "поставил лайк вашему комментарию",
+        "is_read": true,
+        "created_at": "2025-11-01T22:21:47.083Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 21,
+    "fields": {
+        "recipient": 1,
+        "sender": 15,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 29,
+        "message": "поставил лайк вашему комментарию",
+        "is_read": true,
+        "created_at": "2025-11-01T22:21:48.497Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 22,
+    "fields": {
+        "recipient": 1,
+        "sender": 2,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 29,
+        "message": "поставил лайк вашему комментарию",
+        "is_read": true,
+        "created_at": "2025-11-01T22:22:54.933Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 23,
+    "fields": {
+        "recipient": 1,
+        "sender": 2,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 29,
+        "message": "поставил лайк вашему комментарию",
+        "is_read": true,
+        "created_at": "2025-11-01T22:22:56.448Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 24,
+    "fields": {
+        "recipient": 1,
+        "sender": 2,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 29,
+        "message": "поставил лайк вашему комментарию",
+        "is_read": true,
+        "created_at": "2025-11-01T22:22:57.809Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 25,
+    "fields": {
+        "recipient": 1,
+        "sender": 2,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 29,
+        "message": "поставил лайк вашему комментарию",
+        "is_read": true,
+        "created_at": "2025-11-01T22:22:59.038Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 26,
+    "fields": {
+        "recipient": 1,
+        "sender": 2,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 29,
+        "message": "поставил лайк вашему комментарию",
+        "is_read": true,
+        "created_at": "2025-11-01T22:23:00.143Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 27,
+    "fields": {
+        "recipient": 1,
+        "sender": 2,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 29,
+        "message": "поставил лайк вашему комментарию",
+        "is_read": true,
+        "created_at": "2025-11-01T22:23:01.578Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 28,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "comment",
+        "title": null,
+        "post": 21,
+        "comment": 36,
+        "message": "user2 оставил комментарий к вашему посту: 3",
+        "is_read": true,
+        "created_at": "2025-11-01T22:42:39.597Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 29,
+    "fields": {
+        "recipient": 1,
+        "sender": 4,
+        "notification_type": "comment",
+        "title": null,
+        "post": 22,
+        "comment": 37,
+        "message": "user3 оставил комментарий к вашему посту: 12121212",
+        "is_read": true,
+        "created_at": "2025-11-01T22:46:12.971Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 30,
+    "fields": {
+        "recipient": 4,
+        "sender": 1,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 37,
+        "message": "поставил лайк вашему комментарию",
+        "is_read": true,
+        "created_at": "2025-11-01T22:46:47.691Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 31,
+    "fields": {
+        "recipient": 1,
+        "sender": 4,
+        "notification_type": "comment",
+        "title": null,
+        "post": 18,
+        "comment": 40,
+        "message": "user3 оставил комментарий к вашему посту: 11",
+        "is_read": true,
+        "created_at": "2025-11-01T22:57:00.889Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 32,
+    "fields": {
+        "recipient": 4,
+        "sender": 1,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 40,
+        "message": "admin поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T22:57:35.791Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 33,
+    "fields": {
+        "recipient": 4,
+        "sender": 3,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 37,
+        "message": "user2 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T22:58:12.326Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 34,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "comment",
+        "title": null,
+        "post": 16,
+        "comment": 41,
+        "message": "user2 оставил комментарий к вашему посту: 11",
+        "is_read": true,
+        "created_at": "2025-11-01T22:58:31.042Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 35,
+    "fields": {
+        "recipient": 4,
+        "sender": 3,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 40,
+        "message": "user2 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T22:58:46.397Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 36,
+    "fields": {
+        "recipient": 1,
+        "sender": 17,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 27,
+        "message": "user15 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:00:02.142Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 37,
+    "fields": {
+        "recipient": 1,
+        "sender": 17,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 28,
+        "message": "user15 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:00:03.706Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 38,
+    "fields": {
+        "recipient": 7,
+        "sender": 17,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 31,
+        "message": "user15 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:00:05.073Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 39,
+    "fields": {
+        "recipient": 6,
+        "sender": 17,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 35,
+        "message": "user15 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:00:06.462Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 40,
+    "fields": {
+        "recipient": 1,
+        "sender": 17,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 38,
+        "message": "user15 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:00:07.714Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 41,
+    "fields": {
+        "recipient": 3,
+        "sender": 1,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 41,
+        "message": "admin поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:22:24.258Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 42,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 15,
+        "message": "user2 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:27:24.404Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 43,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 16,
+        "message": "user2 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:27:25.838Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 44,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 17,
+        "message": "user2 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:27:27.222Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 45,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 18,
+        "message": "user2 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:27:28.673Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 46,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 19,
+        "message": "user2 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:27:30.055Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 47,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 20,
+        "message": "user2 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:27:31.379Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 48,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 21,
+        "message": "user2 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:27:32.807Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 49,
+    "fields": {
+        "recipient": 2,
+        "sender": 3,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 25,
+        "message": "user2 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-01T23:27:34.227Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 50,
+    "fields": {
+        "recipient": 1,
+        "sender": 17,
+        "notification_type": "like",
+        "title": null,
+        "post": 25,
+        "comment": null,
+        "message": "user15 поставил(а) лайк вашему посту: Тестовая публикация",
+        "is_read": false,
+        "created_at": "2025-11-02T14:48:56.346Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 51,
+    "fields": {
+        "recipient": 1,
+        "sender": 6,
+        "notification_type": "like",
+        "title": null,
+        "post": 25,
+        "comment": null,
+        "message": "user5 поставил(а) лайк вашему посту: Тестовая публикация",
+        "is_read": false,
+        "created_at": "2025-11-02T14:49:29.435Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 52,
+    "fields": {
+        "recipient": 3,
+        "sender": 1,
+        "notification_type": "like",
+        "title": null,
+        "post": 8,
+        "comment": null,
+        "message": "admin поставил(а) лайк вашему посту: testuser2",
+        "is_read": false,
+        "created_at": "2025-11-02T15:13:46.379Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 53,
+    "fields": {
+        "recipient": 3,
+        "sender": 1,
+        "notification_type": "like",
+        "title": null,
+        "post": 8,
+        "comment": null,
+        "message": "admin поставил(а) лайк вашему посту: testuser2",
+        "is_read": false,
+        "created_at": "2025-11-02T16:58:29.814Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 54,
+    "fields": {
+        "recipient": 1,
+        "sender": 3,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 15,
+        "message": "user2 поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-02T19:01:43.366Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 55,
+    "fields": {
+        "recipient": 1,
+        "sender": 11,
+        "notification_type": "subscription",
+        "title": "Новая подписка",
+        "post": null,
+        "comment": null,
+        "message": "user10 подписался на вас!",
+        "is_read": false,
+        "created_at": "2025-11-03T15:15:09.025Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 56,
+    "fields": {
+        "recipient": 11,
+        "sender": 1,
+        "notification_type": "subscription",
+        "title": "Новая подписка",
+        "post": null,
+        "comment": null,
+        "message": "admin подписался на вас!",
+        "is_read": false,
+        "created_at": "2025-11-03T15:17:47.030Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 57,
+    "fields": {
+        "recipient": 1,
+        "sender": 11,
+        "notification_type": "like",
+        "title": null,
+        "post": 25,
+        "comment": null,
+        "message": "user10 поставил(а) лайк вашему посту: Тестовая публикация",
+        "is_read": false,
+        "created_at": "2025-11-03T15:18:22.321Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 58,
+    "fields": {
+        "recipient": 11,
+        "sender": 1,
+        "notification_type": "like",
+        "title": null,
+        "post": 29,
+        "comment": null,
+        "message": "admin поставил(а) лайк вашему посту: test2",
+        "is_read": false,
+        "created_at": "2025-11-03T15:56:17.016Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 59,
+    "fields": {
+        "recipient": 11,
+        "sender": 1,
+        "notification_type": "like",
+        "title": null,
+        "post": 29,
+        "comment": null,
+        "message": "admin поставил(а) лайк вашему посту: test2",
+        "is_read": false,
+        "created_at": "2025-11-03T15:56:19.298Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 60,
+    "fields": {
+        "recipient": 11,
+        "sender": 1,
+        "notification_type": "comment",
+        "title": null,
+        "post": 29,
+        "comment": 44,
+        "message": "admin оставил комментарий к вашему посту: test2",
+        "is_read": false,
+        "created_at": "2025-11-03T15:56:32.527Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 61,
+    "fields": {
+        "recipient": 2,
+        "sender": 1,
+        "notification_type": "like",
+        "title": null,
+        "post": 27,
+        "comment": null,
+        "message": "admin поставил(а) лайк вашему посту: „Подписки и подписчики”",
+        "is_read": false,
+        "created_at": "2025-11-03T18:26:18.791Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 62,
+    "fields": {
+        "recipient": 11,
+        "sender": 1,
+        "notification_type": "subscription",
+        "title": "Новая подписка",
+        "post": null,
+        "comment": null,
+        "message": "admin подписался на вас!",
+        "is_read": false,
+        "created_at": "2025-11-05T15:25:34.793Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 63,
+    "fields": {
+        "recipient": 11,
+        "sender": 1,
+        "notification_type": "like",
+        "title": null,
+        "post": 29,
+        "comment": null,
+        "message": "admin поставил(а) лайк вашему посту: test2",
+        "is_read": false,
+        "created_at": "2025-11-05T15:28:34.648Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 64,
+    "fields": {
+        "recipient": 11,
+        "sender": 1,
+        "notification_type": "subscription",
+        "title": "Новая подписка",
+        "post": null,
+        "comment": null,
+        "message": "admin подписался на вас!",
+        "is_read": false,
+        "created_at": "2025-11-05T15:30:02.696Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 65,
+    "fields": {
+        "recipient": 11,
+        "sender": 1,
+        "notification_type": "subscription",
+        "title": "Новая подписка",
+        "post": null,
+        "comment": null,
+        "message": "admin подписался на вас!",
+        "is_read": false,
+        "created_at": "2025-11-05T15:36:47.709Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 66,
+    "fields": {
+        "recipient": 11,
+        "sender": 1,
+        "notification_type": "subscription",
+        "title": "Новая подписка",
+        "post": null,
+        "comment": null,
+        "message": "admin подписался на вас!",
+        "is_read": false,
+        "created_at": "2025-11-05T15:41:29.765Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 67,
+    "fields": {
+        "recipient": 11,
+        "sender": 1,
+        "notification_type": "subscription",
+        "title": "Новая подписка",
+        "post": null,
+        "comment": null,
+        "message": "admin подписался на вас!",
+        "is_read": false,
+        "created_at": "2025-11-05T15:53:21.467Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 68,
+    "fields": {
+        "recipient": 11,
+        "sender": 1,
+        "notification_type": "subscription",
+        "title": "Новая подписка",
+        "post": null,
+        "comment": null,
+        "message": "admin подписался на вас!",
+        "is_read": false,
+        "created_at": "2025-11-05T15:54:03.031Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 69,
+    "fields": {
+        "recipient": 2,
+        "sender": 1,
+        "notification_type": "like",
+        "title": null,
+        "post": null,
+        "comment": 43,
+        "message": "admin поставил(а) лайк вашему комментарию",
+        "is_read": false,
+        "created_at": "2025-11-05T15:56:12.401Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 70,
+    "fields": {
+        "recipient": 2,
+        "sender": 1,
+        "notification_type": "subscription",
+        "title": "Новая подписка",
+        "post": null,
+        "comment": null,
+        "message": "admin подписался на вас!",
+        "is_read": false,
+        "created_at": "2025-11-05T15:56:20.914Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 71,
+    "fields": {
+        "recipient": 7,
+        "sender": 1,
+        "notification_type": "comment",
+        "title": null,
+        "post": 26,
+        "comment": 46,
+        "message": "admin оставил комментарий к вашему посту: 111111",
+        "is_read": false,
+        "created_at": "2025-11-05T15:57:10.347Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 72,
+    "fields": {
+        "recipient": 19,
+        "sender": 24,
+        "notification_type": "comment",
+        "title": null,
+        "post": 30,
+        "comment": 47,
+        "message": "user_5 оставил комментарий к вашему посту: post_0",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:08.242Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 73,
+    "fields": {
+        "recipient": 19,
+        "sender": 25,
+        "notification_type": "comment",
+        "title": null,
+        "post": 30,
+        "comment": 48,
+        "message": "user_6 оставил комментарий к вашему посту: post_0",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:08.958Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 74,
+    "fields": {
+        "recipient": 19,
+        "sender": 26,
+        "notification_type": "comment",
+        "title": null,
+        "post": 30,
+        "comment": 49,
+        "message": "user_7 оставил комментарий к вашему посту: post_0",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:09.542Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 75,
+    "fields": {
+        "recipient": 19,
+        "sender": 27,
+        "notification_type": "comment",
+        "title": null,
+        "post": 30,
+        "comment": 50,
+        "message": "user_8 оставил комментарий к вашему посту: post_0",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:10.143Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 76,
+    "fields": {
+        "recipient": 19,
+        "sender": 28,
+        "notification_type": "comment",
+        "title": null,
+        "post": 30,
+        "comment": 51,
+        "message": "user_9 оставил комментарий к вашему посту: post_0",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:10.724Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 77,
+    "fields": {
+        "recipient": 19,
+        "sender": 29,
+        "notification_type": "comment",
+        "title": null,
+        "post": 31,
+        "comment": 52,
+        "message": "user_10 оставил комментарий к вашему посту: post_1",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:11.326Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 78,
+    "fields": {
+        "recipient": 19,
+        "sender": 30,
+        "notification_type": "comment",
+        "title": null,
+        "post": 31,
+        "comment": 53,
+        "message": "user_11 оставил комментарий к вашему посту: post_1",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:12.265Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 79,
+    "fields": {
+        "recipient": 19,
+        "sender": 31,
+        "notification_type": "comment",
+        "title": null,
+        "post": 31,
+        "comment": 54,
+        "message": "user_12 оставил комментарий к вашему посту: post_1",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:13.294Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 80,
+    "fields": {
+        "recipient": 19,
+        "sender": 32,
+        "notification_type": "comment",
+        "title": null,
+        "post": 31,
+        "comment": 55,
+        "message": "user_13 оставил комментарий к вашему посту: post_1",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:13.882Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 81,
+    "fields": {
+        "recipient": 19,
+        "sender": 33,
+        "notification_type": "comment",
+        "title": null,
+        "post": 31,
+        "comment": 56,
+        "message": "user_14 оставил комментарий к вашему посту: post_1",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:14.474Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 82,
+    "fields": {
+        "recipient": 19,
+        "sender": 34,
+        "notification_type": "comment",
+        "title": null,
+        "post": 32,
+        "comment": 57,
+        "message": "user_15 оставил комментарий к вашему посту: post_2",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:15.069Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 83,
+    "fields": {
+        "recipient": 19,
+        "sender": 35,
+        "notification_type": "comment",
+        "title": null,
+        "post": 32,
+        "comment": 58,
+        "message": "user_16 оставил комментарий к вашему посту: post_2",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:15.795Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 84,
+    "fields": {
+        "recipient": 19,
+        "sender": 36,
+        "notification_type": "comment",
+        "title": null,
+        "post": 32,
+        "comment": 59,
+        "message": "user_17 оставил комментарий к вашему посту: post_2",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:16.402Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 85,
+    "fields": {
+        "recipient": 19,
+        "sender": 37,
+        "notification_type": "comment",
+        "title": null,
+        "post": 32,
+        "comment": 60,
+        "message": "user_18 оставил комментарий к вашему посту: post_2",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:17.017Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 86,
+    "fields": {
+        "recipient": 19,
+        "sender": 38,
+        "notification_type": "comment",
+        "title": null,
+        "post": 32,
+        "comment": 61,
+        "message": "user_19 оставил комментарий к вашему посту: post_2",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:17.599Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 87,
+    "fields": {
+        "recipient": 20,
+        "sender": 39,
+        "notification_type": "comment",
+        "title": null,
+        "post": 33,
+        "comment": 62,
+        "message": "user_20 оставил комментарий к вашему посту: post_3",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:18.235Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 88,
+    "fields": {
+        "recipient": 20,
+        "sender": 40,
+        "notification_type": "comment",
+        "title": null,
+        "post": 33,
+        "comment": 63,
+        "message": "user_21 оставил комментарий к вашему посту: post_3",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:18.824Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 89,
+    "fields": {
+        "recipient": 20,
+        "sender": 41,
+        "notification_type": "comment",
+        "title": null,
+        "post": 33,
+        "comment": 64,
+        "message": "user_22 оставил комментарий к вашему посту: post_3",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:19.422Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 90,
+    "fields": {
+        "recipient": 20,
+        "sender": 42,
+        "notification_type": "comment",
+        "title": null,
+        "post": 33,
+        "comment": 65,
+        "message": "user_23 оставил комментарий к вашему посту: post_3",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:20.010Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 91,
+    "fields": {
+        "recipient": 20,
+        "sender": 43,
+        "notification_type": "comment",
+        "title": null,
+        "post": 33,
+        "comment": 66,
+        "message": "user_24 оставил комментарий к вашему посту: post_3",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:20.596Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 92,
+    "fields": {
+        "recipient": 20,
+        "sender": 44,
+        "notification_type": "comment",
+        "title": null,
+        "post": 34,
+        "comment": 67,
+        "message": "user_25 оставил комментарий к вашему посту: post_4",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:21.233Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 93,
+    "fields": {
+        "recipient": 20,
+        "sender": 45,
+        "notification_type": "comment",
+        "title": null,
+        "post": 34,
+        "comment": 68,
+        "message": "user_26 оставил комментарий к вашему посту: post_4",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:22.196Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 94,
+    "fields": {
+        "recipient": 20,
+        "sender": 46,
+        "notification_type": "comment",
+        "title": null,
+        "post": 34,
+        "comment": 69,
+        "message": "user_27 оставил комментарий к вашему посту: post_4",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:23.382Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 95,
+    "fields": {
+        "recipient": 20,
+        "sender": 47,
+        "notification_type": "comment",
+        "title": null,
+        "post": 34,
+        "comment": 70,
+        "message": "user_28 оставил комментарий к вашему посту: post_4",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:24.023Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 96,
+    "fields": {
+        "recipient": 20,
+        "sender": 48,
+        "notification_type": "comment",
+        "title": null,
+        "post": 34,
+        "comment": 71,
+        "message": "user_29 оставил комментарий к вашему посту: post_4",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:24.728Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 97,
+    "fields": {
+        "recipient": 20,
+        "sender": 49,
+        "notification_type": "comment",
+        "title": null,
+        "post": 35,
+        "comment": 72,
+        "message": "user_30 оставил комментарий к вашему посту: post_5",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:25.360Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 98,
+    "fields": {
+        "recipient": 20,
+        "sender": 50,
+        "notification_type": "comment",
+        "title": null,
+        "post": 35,
+        "comment": 73,
+        "message": "user_31 оставил комментарий к вашему посту: post_5",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:26.077Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 99,
+    "fields": {
+        "recipient": 20,
+        "sender": 51,
+        "notification_type": "comment",
+        "title": null,
+        "post": 35,
+        "comment": 74,
+        "message": "user_32 оставил комментарий к вашему посту: post_5",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:26.688Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 100,
+    "fields": {
+        "recipient": 20,
+        "sender": 52,
+        "notification_type": "comment",
+        "title": null,
+        "post": 35,
+        "comment": 75,
+        "message": "user_33 оставил комментарий к вашему посту: post_5",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:27.328Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 101,
+    "fields": {
+        "recipient": 20,
+        "sender": 53,
+        "notification_type": "comment",
+        "title": null,
+        "post": 35,
+        "comment": 76,
+        "message": "user_34 оставил комментарий к вашему посту: post_5",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:27.908Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 102,
+    "fields": {
+        "recipient": 21,
+        "sender": 54,
+        "notification_type": "comment",
+        "title": null,
+        "post": 36,
+        "comment": 77,
+        "message": "user_35 оставил комментарий к вашему посту: post_6",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:28.552Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 103,
+    "fields": {
+        "recipient": 21,
+        "sender": 55,
+        "notification_type": "comment",
+        "title": null,
+        "post": 36,
+        "comment": 78,
+        "message": "user_36 оставил комментарий к вашему посту: post_6",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:29.136Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 104,
+    "fields": {
+        "recipient": 21,
+        "sender": 56,
+        "notification_type": "comment",
+        "title": null,
+        "post": 36,
+        "comment": 79,
+        "message": "user_37 оставил комментарий к вашему посту: post_6",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:29.727Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 105,
+    "fields": {
+        "recipient": 21,
+        "sender": 57,
+        "notification_type": "comment",
+        "title": null,
+        "post": 36,
+        "comment": 80,
+        "message": "user_38 оставил комментарий к вашему посту: post_6",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:30.314Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 106,
+    "fields": {
+        "recipient": 21,
+        "sender": 58,
+        "notification_type": "comment",
+        "title": null,
+        "post": 36,
+        "comment": 81,
+        "message": "user_39 оставил комментарий к вашему посту: post_6",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:30.897Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 107,
+    "fields": {
+        "recipient": 21,
+        "sender": 59,
+        "notification_type": "comment",
+        "title": null,
+        "post": 37,
+        "comment": 82,
+        "message": "user_40 оставил комментарий к вашему посту: post_7",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:31.497Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 108,
+    "fields": {
+        "recipient": 21,
+        "sender": 60,
+        "notification_type": "comment",
+        "title": null,
+        "post": 37,
+        "comment": 83,
+        "message": "user_41 оставил комментарий к вашему посту: post_7",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:32.384Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 109,
+    "fields": {
+        "recipient": 21,
+        "sender": 61,
+        "notification_type": "comment",
+        "title": null,
+        "post": 37,
+        "comment": 84,
+        "message": "user_42 оставил комментарий к вашему посту: post_7",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:33.249Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 110,
+    "fields": {
+        "recipient": 21,
+        "sender": 62,
+        "notification_type": "comment",
+        "title": null,
+        "post": 37,
+        "comment": 85,
+        "message": "user_43 оставил комментарий к вашему посту: post_7",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:33.838Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 111,
+    "fields": {
+        "recipient": 21,
+        "sender": 63,
+        "notification_type": "comment",
+        "title": null,
+        "post": 37,
+        "comment": 86,
+        "message": "user_44 оставил комментарий к вашему посту: post_7",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:34.446Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 112,
+    "fields": {
+        "recipient": 21,
+        "sender": 64,
+        "notification_type": "comment",
+        "title": null,
+        "post": 38,
+        "comment": 87,
+        "message": "user_45 оставил комментарий к вашему посту: post_8",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:35.044Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 113,
+    "fields": {
+        "recipient": 21,
+        "sender": 65,
+        "notification_type": "comment",
+        "title": null,
+        "post": 38,
+        "comment": 88,
+        "message": "user_46 оставил комментарий к вашему посту: post_8",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:35.762Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 114,
+    "fields": {
+        "recipient": 21,
+        "sender": 66,
+        "notification_type": "comment",
+        "title": null,
+        "post": 38,
+        "comment": 89,
+        "message": "user_47 оставил комментарий к вашему посту: post_8",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:36.378Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 115,
+    "fields": {
+        "recipient": 21,
+        "sender": 67,
+        "notification_type": "comment",
+        "title": null,
+        "post": 38,
+        "comment": 90,
+        "message": "user_48 оставил комментарий к вашему посту: post_8",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:36.974Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 116,
+    "fields": {
+        "recipient": 21,
+        "sender": 68,
+        "notification_type": "comment",
+        "title": null,
+        "post": 38,
+        "comment": 91,
+        "message": "user_49 оставил комментарий к вашему посту: post_8",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:37.568Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 117,
+    "fields": {
+        "recipient": 22,
+        "sender": 69,
+        "notification_type": "comment",
+        "title": null,
+        "post": 39,
+        "comment": 92,
+        "message": "user_50 оставил комментарий к вашему посту: post_9",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:38.196Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 118,
+    "fields": {
+        "recipient": 22,
+        "sender": 70,
+        "notification_type": "comment",
+        "title": null,
+        "post": 39,
+        "comment": 93,
+        "message": "user_51 оставил комментарий к вашему посту: post_9",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:38.775Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 119,
+    "fields": {
+        "recipient": 22,
+        "sender": 71,
+        "notification_type": "comment",
+        "title": null,
+        "post": 39,
+        "comment": 94,
+        "message": "user_52 оставил комментарий к вашему посту: post_9",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:39.364Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 120,
+    "fields": {
+        "recipient": 22,
+        "sender": 72,
+        "notification_type": "comment",
+        "title": null,
+        "post": 39,
+        "comment": 95,
+        "message": "user_53 оставил комментарий к вашему посту: post_9",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:39.942Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 121,
+    "fields": {
+        "recipient": 22,
+        "sender": 73,
+        "notification_type": "comment",
+        "title": null,
+        "post": 39,
+        "comment": 96,
+        "message": "user_54 оставил комментарий к вашему посту: post_9",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:40.557Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 122,
+    "fields": {
+        "recipient": 22,
+        "sender": 74,
+        "notification_type": "comment",
+        "title": null,
+        "post": 40,
+        "comment": 97,
+        "message": "user_55 оставил комментарий к вашему посту: post_10",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:41.141Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 123,
+    "fields": {
+        "recipient": 22,
+        "sender": 75,
+        "notification_type": "comment",
+        "title": null,
+        "post": 40,
+        "comment": 98,
+        "message": "user_56 оставил комментарий к вашему посту: post_10",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:41.803Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 124,
+    "fields": {
+        "recipient": 22,
+        "sender": 76,
+        "notification_type": "comment",
+        "title": null,
+        "post": 40,
+        "comment": 99,
+        "message": "user_57 оставил комментарий к вашему посту: post_10",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:42.900Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 125,
+    "fields": {
+        "recipient": 22,
+        "sender": 77,
+        "notification_type": "comment",
+        "title": null,
+        "post": 40,
+        "comment": 100,
+        "message": "user_58 оставил комментарий к вашему посту: post_10",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:43.563Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 126,
+    "fields": {
+        "recipient": 22,
+        "sender": 78,
+        "notification_type": "comment",
+        "title": null,
+        "post": 40,
+        "comment": 101,
+        "message": "user_59 оставил комментарий к вашему посту: post_10",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:44.171Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 127,
+    "fields": {
+        "recipient": 22,
+        "sender": 79,
+        "notification_type": "comment",
+        "title": null,
+        "post": 41,
+        "comment": 102,
+        "message": "user_60 оставил комментарий к вашему посту: post_11",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:44.781Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 128,
+    "fields": {
+        "recipient": 22,
+        "sender": 80,
+        "notification_type": "comment",
+        "title": null,
+        "post": 41,
+        "comment": 103,
+        "message": "user_61 оставил комментарий к вашему посту: post_11",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:45.482Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 129,
+    "fields": {
+        "recipient": 22,
+        "sender": 81,
+        "notification_type": "comment",
+        "title": null,
+        "post": 41,
+        "comment": 104,
+        "message": "user_62 оставил комментарий к вашему посту: post_11",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:46.093Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 130,
+    "fields": {
+        "recipient": 22,
+        "sender": 82,
+        "notification_type": "comment",
+        "title": null,
+        "post": 41,
+        "comment": 105,
+        "message": "user_63 оставил комментарий к вашему посту: post_11",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:46.717Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 131,
+    "fields": {
+        "recipient": 22,
+        "sender": 83,
+        "notification_type": "comment",
+        "title": null,
+        "post": 41,
+        "comment": 106,
+        "message": "user_64 оставил комментарий к вашему посту: post_11",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:47.298Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 132,
+    "fields": {
+        "recipient": 23,
+        "sender": 84,
+        "notification_type": "comment",
+        "title": null,
+        "post": 42,
+        "comment": 107,
+        "message": "user_65 оставил комментарий к вашему посту: post_12",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:47.926Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 133,
+    "fields": {
+        "recipient": 23,
+        "sender": 85,
+        "notification_type": "comment",
+        "title": null,
+        "post": 42,
+        "comment": 108,
+        "message": "user_66 оставил комментарий к вашему посту: post_12",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:48.520Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 134,
+    "fields": {
+        "recipient": 23,
+        "sender": 86,
+        "notification_type": "comment",
+        "title": null,
+        "post": 42,
+        "comment": 109,
+        "message": "user_67 оставил комментарий к вашему посту: post_12",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:49.107Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 135,
+    "fields": {
+        "recipient": 23,
+        "sender": 87,
+        "notification_type": "comment",
+        "title": null,
+        "post": 42,
+        "comment": 110,
+        "message": "user_68 оставил комментарий к вашему посту: post_12",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:49.706Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 136,
+    "fields": {
+        "recipient": 23,
+        "sender": 88,
+        "notification_type": "comment",
+        "title": null,
+        "post": 42,
+        "comment": 111,
+        "message": "user_69 оставил комментарий к вашему посту: post_12",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:50.286Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 137,
+    "fields": {
+        "recipient": 23,
+        "sender": 89,
+        "notification_type": "comment",
+        "title": null,
+        "post": 43,
+        "comment": 112,
+        "message": "user_70 оставил комментарий к вашему посту: post_13",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:50.922Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 138,
+    "fields": {
+        "recipient": 23,
+        "sender": 90,
+        "notification_type": "comment",
+        "title": null,
+        "post": 43,
+        "comment": 113,
+        "message": "user_71 оставил комментарий к вашему посту: post_13",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:51.509Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 139,
+    "fields": {
+        "recipient": 23,
+        "sender": 91,
+        "notification_type": "comment",
+        "title": null,
+        "post": 43,
+        "comment": 114,
+        "message": "user_72 оставил комментарий к вашему посту: post_13",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:52.405Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 140,
+    "fields": {
+        "recipient": 23,
+        "sender": 92,
+        "notification_type": "comment",
+        "title": null,
+        "post": 43,
+        "comment": 115,
+        "message": "user_73 оставил комментарий к вашему посту: post_13",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:53.137Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 141,
+    "fields": {
+        "recipient": 23,
+        "sender": 93,
+        "notification_type": "comment",
+        "title": null,
+        "post": 43,
+        "comment": 116,
+        "message": "user_74 оставил комментарий к вашему посту: post_13",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:53.737Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 142,
+    "fields": {
+        "recipient": 23,
+        "sender": 94,
+        "notification_type": "comment",
+        "title": null,
+        "post": 44,
+        "comment": 117,
+        "message": "user_75 оставил комментарий к вашему посту: post_14",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:54.369Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 143,
+    "fields": {
+        "recipient": 23,
+        "sender": 95,
+        "notification_type": "comment",
+        "title": null,
+        "post": 44,
+        "comment": 118,
+        "message": "user_76 оставил комментарий к вашему посту: post_14",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:55.005Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 144,
+    "fields": {
+        "recipient": 23,
+        "sender": 96,
+        "notification_type": "comment",
+        "title": null,
+        "post": 44,
+        "comment": 119,
+        "message": "user_77 оставил комментарий к вашему посту: post_14",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:55.664Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 145,
+    "fields": {
+        "recipient": 23,
+        "sender": 97,
+        "notification_type": "comment",
+        "title": null,
+        "post": 44,
+        "comment": 120,
+        "message": "user_78 оставил комментарий к вашему посту: post_14",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:56.274Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 146,
+    "fields": {
+        "recipient": 23,
+        "sender": 98,
+        "notification_type": "comment",
+        "title": null,
+        "post": 44,
+        "comment": 121,
+        "message": "user_79 оставил комментарий к вашему посту: post_14",
+        "is_read": false,
+        "created_at": "2025-11-10T22:30:57.260Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 147,
+    "fields": {
+        "recipient": 19,
+        "sender": 1,
+        "notification_type": "like",
+        "title": null,
+        "post": 30,
+        "comment": null,
+        "message": "admin поставил(а) лайк вашему посту: post_0",
+        "is_read": false,
+        "created_at": "2025-11-11T10:21:14.599Z"
+    }
+},
+{
+    "model": "posts.notification",
+    "pk": 148,
+    "fields": {
+        "recipient": 19,
+        "sender": 1,
+        "notification_type": "like",
+        "title": null,
+        "post": 30,
+        "comment": null,
+        "message": "admin поставил(а) лайк вашему посту: post_0",
+        "is_read": false,
+        "created_at": "2025-11-11T10:21:19.929Z"
+    }
+}
+]

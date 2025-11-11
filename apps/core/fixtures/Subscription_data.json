@@ -1,0 +1,83 @@
+[
+{
+    "model": "posts.subscription",
+    "pk": 5,
+    "fields": {
+        "user": 3,
+        "subscribed_to": 1,
+        "created_at": "2025-11-02T18:59:45.367Z"
+    }
+},
+{
+    "model": "posts.subscription",
+    "pk": 10,
+    "fields": {
+        "user": 1,
+        "subscribed_to": 3,
+        "created_at": "2025-11-02T19:24:14.149Z"
+    }
+},
+{
+    "model": "posts.subscription",
+    "pk": 13,
+    "fields": {
+        "user": 1,
+        "subscribed_to": 7,
+        "created_at": "2025-11-02T23:20:11.587Z"
+    }
+},
+{
+    "model": "posts.subscription",
+    "pk": 15,
+    "fields": {
+        "user": 4,
+        "subscribed_to": 1,
+        "created_at": "2025-11-02T23:25:11.910Z"
+    }
+},
+{
+    "model": "posts.subscription",
+    "pk": 16,
+    "fields": {
+        "user": 5,
+        "subscribed_to": 1,
+        "created_at": "2025-11-02T23:26:27.845Z"
+    }
+},
+{
+    "model": "posts.subscription",
+    "pk": 17,
+    "fields": {
+        "user": 6,
+        "subscribed_to": 1,
+        "created_at": "2025-11-02T23:27:24.221Z"
+    }
+},
+{
+    "model": "posts.subscription",
+    "pk": 18,
+    "fields": {
+        "user": 11,
+        "subscribed_to": 1,
+        "created_at": "2025-11-03T15:15:09.017Z"
+    }
+},
+{
+    "model": "posts.subscription",
+    "pk": 25,
+    "fields": {
+        "user": 1,
+        "subscribed_to": 11,
+        "created_at": "2025-11-05T15:54:03.026Z"
+    }
+},
+{
+    "model": "posts.subscription",
+    "pk": 26,
+    "fields": {
+        "user": 1,
+        "subscribed_to": 2,
+        "created_at": "2025-11-05T15:56:20.910Z"
+    }
+}
+]
