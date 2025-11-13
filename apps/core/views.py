@@ -15,5 +15,6 @@ def home_main(request):
     context = {
         'posts': posts,
         'users': users,
+        'pagename': 'Chatty'
     }
     return render(request, 'home.html', context)

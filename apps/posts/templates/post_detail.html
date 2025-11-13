@@ -21,7 +21,7 @@
 
                 <!-- Кнопка подписки/отписки -->
                 {% if user.is_authenticated and user != post.author %}
-                    <form method="post" action="{% url 'posts:toggle_subscription' post.author.id post.id%}"
+                    <form method="post" action="{% url 'posts:toggle_subscription' post.author.id post.id %}"
                           style="display:inline;">
                         {% csrf_token %}
                         {% if post.author.id in subscribed_ids %}
@@ -70,9 +70,7 @@
                     </a>
                 {% endif %}
 
-                <a href="{% url 'posts:posts_list' %}" class="btn btn-secondary btn-sm">
-                    ← Назад к постам
-                </a>
+                <a href="{{ back_url }}" class="btn btn-secondary btn-sm">← Назад к постам</a>
             </div>
             <!-- Форма добавления комментария -->
             {% if user.is_authenticated %}

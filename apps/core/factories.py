@@ -10,6 +10,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User  # Указываем, какую модель будет создавать эта фабрика
         django_get_or_create = ('username',)
+        skip_postgeneration_save = True
 
     username = factory.Sequence(lambda n: f'user_{n}')  # Генерирует user_0, user_1 и т.д.
     email = factory.Sequence(lambda o: f'user_{o}@example.com')

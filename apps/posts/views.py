@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
-from django.db.models import Q, F
+from django.db.models import Q, F, Count
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -11,42 +11,91 @@ from django.views.decorators.http import require_POST
 from .forms import PostForm, CommentForm
 from .models import Post, User, Comment, Notification, LikeDislike, Subscription
 from django.contrib import messages
+from django.urls import reverse
 import logging
 
 logger = logging.getLogger(__name__)
 
 
 # Create your views here.
+
 def posts_list(request, my_posts=None, number_of_posts=5):
-    query = request.GET.get('q', '')
     author_id = request.GET.get("author")
+
+    # --- Определяем, какие посты показывать ---
     if my_posts:
         if not request.user.is_authenticated:
             raise PermissionDenied
         pagename = "Мои посты"
-        posts_list = Post.objects.filter(author=request.user).select_related("author")
+        posts_list = (
+            Post.with_likes_count()
+            .filter(author=request.user)
+            .select_related("author")
+            .annotate(num_comments=Count("comments", distinct=True))
+        )
     elif author_id:
-        posts_list = Post.objects.filter(author_id=author_id, public=True)
+        posts_list = (
+            Post.with_likes_count()
+            .filter(author_id=author_id, public=True)
+            .select_related("author")
+            .annotate(num_comments=Count("comments", distinct=True))
+        )
         pagename = f'Посты пользователя {User.objects.get(id=author_id).username}'
     else:
         pagename = "Просмотр постов"
         if request.user.is_authenticated:
-            posts_list = Post.objects.filter(Q(public=True) | Q(public=False, author=request.user)).select_related(
-                "author")
+            posts_list = (
+                Post.with_likes_count()
+                .filter(Q(public=True) | Q(public=False, author=request.user))
+                .select_related("author")
+                .annotate(num_comments=Count("comments", distinct=True))
+            )
         else:
-            posts_list = Post.objects.filter(public=True).select_related("author")
+            posts_list = (
+                Post.with_likes_count()
+                .filter(public=True)
+                .select_related("author")
+                .annotate(num_comments=Count("comments", distinct=True))
+            )
 
-    if query:
-        posts_list = posts_list.filter(Q(title__icontains=query) | Q(content__icontains=query))
+    # --- Поиск ---
+    search = request.GET.get('search', '')
+    if search and search.lower() != 'none':
+        posts_list = posts_list.filter(
+            Q(title__icontains=search) | Q(content__icontains=search)
+        )
 
-    paginator = Paginator(posts_list.select_related("author"), number_of_posts)
+    # --- Сортировка ---
+    sort = request.GET.get('sort', 'updated_at')
+    if sort:
+        posts_list = posts_list.order_by(sort)
+
+    # --- Пагинация ---
+    paginator = Paginator(posts_list, number_of_posts)
     page_number = request.GET.get("page")
     posts = paginator.get_page(page_number)
+
+    # --- Левый сайдбар: Топ-5 популярных постов с likes/dislikes/num_comments ---
+    top_posts = (
+        Post.with_likes_count()
+        .filter(public=True)
+        .select_related("author")
+        .annotate(num_comments=Count("comments", distinct=True))
+        .order_by('-views_count')[:5]
+    )
+
+    # --- Правый сайдбар: последние 5 зарегистрированных пользователей ---
+    users = User.objects.all().order_by('-date_joined')[:5]
+
     context = {
         'pagename': pagename,
         'posts': posts,
-        'query': query
+        'search': search,
+        'sort': sort,
+        'top_posts': top_posts,
+        'users': users,
     }
+
     return render(request, 'posts_list.html', context)
 
 
@@ -84,11 +133,16 @@ def post_detail(request, post_id, number_of_comments=2):
     page_number = request.GET.get('page')
     comments = paginator.get_page(page_number)
 
+    back_page = request.GET.get('list_page', 1)
+    search = request.GET.get('search', '')
+    sort = request.GET.get('sort', 'updated_at')
+
     context = {
         'post': post,
         'form': comment_form,
         'comments': comments,
         'subscribed_ids': subscribed_ids,
+        'back_url': f"{reverse('posts:posts_list')}?page={back_page}&search={search}&sort={sort}"
 
     }
     return render(request, 'post_detail.html', context)
@@ -122,13 +176,11 @@ def edit_post(request, post_id):
 def delete_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if post.author != request.user:
-        raise PermissionDenied
-
-    if request.method == 'POST':
-        post.delete()
+        messages.error(request, "У вас нет прав для удаления этого поста")
         return redirect('posts:posts_list')
-
-    return render(request, 'post_delete.html', {'post': post})
+    post.delete()
+    messages.success(request, f'Post "{post.title}" was deleted.')
+    return redirect('posts:posts_list')
 
 
 # CREATE comment
