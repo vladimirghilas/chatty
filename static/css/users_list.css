@@ -1,0 +1,74 @@
+        body {
+            background-color: #f5f6f7;
+        }
+
+        .feed-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .feed-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sidebar-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+
+        .user-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .user-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        /* Sortare și căutare compacte */
+
+        .sort-links {
+            margin-bottom: 8px;
+        }
+
+        .sort-links a {
+            margin-right: 8px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .sort-links i {
+            margin-left: 2px;
+            font-size: 0.65rem;
+        }
+
+        .pagination {
+            margin-top: 15px;
+        }
+
+        .pagination .page-link {
+            font-size: 0.8rem;
+            padding: 3px 7px;
+        }

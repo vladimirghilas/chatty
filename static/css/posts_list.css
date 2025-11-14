@@ -1,0 +1,106 @@
+
+        .feed-layout {
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 992px) {
+            .feed-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Компактный сайдбар */
+        .sidebar-card {
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            padding: 8px;
+            font-size: 0.8rem;
+        }
+
+        .sidebar-card a {
+            display: block;
+            margin-bottom: 4px;
+            text-decoration: none;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Компактная карточка поста */
+        .feed-card {
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            padding: 8px 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .feed-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .post-title {
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+        }
+
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: gray;
+            margin-bottom: 2px;
+        }
+
+        .feed-header a {
+            color: #1877f2;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .post-stats {
+            font-size: 0.7rem;
+            color: gray;
+        }
+
+        /* Поиск */
+        .search-bar {
+            margin-bottom: 10px;
+        }
+
+        /* Компактные ссылки сортировки */
+        .sort-links {
+            margin-bottom: 8px;
+        }
+
+        .sort-links a {
+            margin-right: 8px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .sort-links i {
+            margin-left: 2px;
+            font-size: 0.65rem;
+        }
+
+        /* Компактная пагинация */
+        .pagination .page-link {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }

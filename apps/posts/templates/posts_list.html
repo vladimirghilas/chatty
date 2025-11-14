@@ -1,128 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/posts_list.css' %}">
+{% endblock %}
 
 {% block content %}
-    <style>
-        body {
-            background-color: #f0f2f5;
-            font-size: 0.875rem; /* mai mic pentru compact */
-        }
-
-        .feed-layout {
-            display: grid;
-            grid-template-columns: 1fr 3fr 1fr;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        @media (max-width: 992px) {
-            .feed-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Sidebar compact */
-        .sidebar-card {
-            background-color: white;
-            border-radius: 6px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-            padding: 8px;
-            font-size: 0.8rem;
-        }
-
-        .sidebar-card a {
-            display: block;
-            margin-bottom: 4px;
-            text-decoration: none;
-            color: #333;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        /* Feed-card compact */
-        .feed-card {
-            background-color: white;
-            border-radius: 6px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-            padding: 8px 10px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: transform 0.1s, box-shadow 0.1s;
-        }
-
-        .feed-card:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-        }
-
-        .post-title {
-            font-weight: 500;
-            font-size: 0.9rem;
-            margin-bottom: 2px;
-        }
-
-        .feed-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: gray;
-            margin-bottom: 2px;
-        }
-
-        .feed-header a {
-            color: #1877f2;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .post-stats {
-            font-size: 0.7rem;
-            color: gray;
-        }
-
-        /* Search */
-        .search-bar {
-            margin-bottom: 10px;
-        }
-
-        /* Sort links compact */
-        .sort-links {
-            margin-bottom: 8px;
-        }
-
-        .sort-links a {
-            margin-right: 8px;
-            font-size: 0.8rem;
-            text-decoration: none;
-            color: #333;
-        }
-
-        .sort-links i {
-            margin-left: 2px;
-            font-size: 0.65rem;
-        }
-
-        /* Paginare compactă */
-        .pagination .page-link {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-        }
-
-        .pagination .page-item.active .page-link {
-            background-color: #0d6efd;
-            border-color: #0d6efd;
-        }
-    </style>
-
     <div class="container mt-2">
         <!-- Заголовок -->
         <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-            <!-- Stânga: titlul paginii -->
+            <!-- Слева: название страницы -->
             <h4 class="mb-1">{{ pagename }}</h4>
 
-            <!-- Dreapta: sortare și search -->
+            <!-- Справа: сортировка и поиск -->
             <div class="d-flex align-items-center flex-wrap gap-5">
-                <!-- Sortare -->
+                <!-- Сортировка -->
                 <div class="sort-links">
                     {% if sort == "updated_at" %}
                         <a href="{% querystring sort='-updated_at' %}" class="me-2">По дате публикации<i
@@ -145,7 +37,7 @@
                     {% endif %}
                 </div>
 
-                <!-- Search -->
+                <!-- Поиск -->
                 <form method="get" class="ms-3">
                     <div class="input-group input-group-sm" style="width: 300px;">
                         <input type="text" name="search" class="form-control" placeholder="Поиск по постам"
@@ -157,7 +49,7 @@
         </div>
 
         <div class="feed-layout">
-            <!-- Левый sidebar: топ-5 -->
+            <!-- Левый сайдбар: топ-5 -->
             <div class="d-none d-lg-block">
                 <div class="sidebar-card">
                     <h6>🔥 Популярные посты</h6>
@@ -169,7 +61,7 @@
                 </div>
             </div>
 
-            <!-- Основной feed -->
+            <!-- Основной фид -->
             <div>
                 {% for post in posts %}
                     <div class="feed-card"
@@ -189,7 +81,7 @@
                     <p class="text-center text-muted mt-1">Постов нет</p>
                 {% endfor %}
 
-                <!-- Paginare -->
+                <!-- Пагинация -->
                 {% if posts.has_other_pages %}
                     <nav aria-label="Навигация по страницам" class="mt-1">
                         <ul class="pagination justify-content-center pagination-sm">
@@ -229,7 +121,7 @@
                 {% endif %}
             </div>
 
-            <!-- Right sidebar: users -->
+            <!-- Правый сайдбар: пользователи -->
             <div class="d-none d-lg-block">
                 <div class="sidebar-card">
                     <h6><i class="fa-solid fa-users me-1"></i> Пользователи</h6>

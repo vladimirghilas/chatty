@@ -98,7 +98,6 @@ def posts_list(request, my_posts=None, number_of_posts=5):
 
     return render(request, 'posts_list.html', context)
 
-
 @login_required
 def create_post(request):
     if request.method == 'POST':

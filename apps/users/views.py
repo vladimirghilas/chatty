@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Count
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
@@ -75,20 +75,33 @@ def resend_activation(request):
         raise Http404
 
 
-def users_list(request, number_of_users=5):
-    query = request.GET.get('q', '')
-    users_list = User.objects.all().order_by("username")
-    if query:
-        users_list = users_list.filter(Q(username__icontains=query) | Q(email__icontains=query))
+def users_list(request):
+    search = request.GET.get('search', '')
+    sort = request.GET.get('sort', '-date_joined')
 
-    paginator = Paginator(users_list, number_of_users)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
+    users_list = User.objects.annotate(posts_count=Count('posts'), followers_count=Count('followers'))
+
+    if search:
+        users_list = users_list.filter(username__icontains=search)
+
+    users_list = users_list.order_by(sort)
+
+    paginator = Paginator(users_list, 5)
+    page_number = request.GET.get('page')
+    users = paginator.get_page(page_number)
+
+    top_users = User.objects.annotate(posts_count=Count('posts')).order_by('-posts_count')[:5]
+    recent_users = User.objects.order_by('-date_joined')[:5]
+
     context = {
-        'users': page_obj,
-        'query': query
+        'users': users,
+        'search': search,
+        'sort': sort,
+        'top_users': top_users,
+        'recent_users': recent_users,
     }
-    return render(request, 'users_list.html', context)
+
+    return render(request, 'users_list.html', context )
 
 
 @login_required

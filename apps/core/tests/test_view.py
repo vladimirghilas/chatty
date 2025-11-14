@@ -329,12 +329,12 @@ class TestPostPage:
         self.posts = []
         # посты первого пользователя
         self.posts.extend([
-             Post.objects.create(
-                 title="Hello world",
-                 content="Content1",
-                 public=True,
-                 author=self.user
-             ),
+            Post.objects.create(
+                title="Hello world",
+                content="Content1",
+                public=True,
+                author=self.user
+            ),
             Post.objects.create(
                 title="Title2",
                 content="Content2",
@@ -431,7 +431,7 @@ class TestPostPage:
 
         public_posts = [p for p in self.posts if p.public]
         private_qwn_posts = [p for p in self.posts if not p.public and p.author == self.user]
-        expected_count = len(public_posts)+len(private_qwn_posts)
+        expected_count = len(public_posts) + len(private_qwn_posts)
         if expected_count > num_posts_on_page:
             expected_count = num_posts_on_page
         assert len(response.context['posts']) == expected_count
@@ -441,7 +441,7 @@ class TestPostPage:
         num_posts_on_page = 5
         response = self.client.get('/posts/', {'num_posts_on_page': num_posts_on_page})
         assert response.status_code == 200
-        assert response.context['pagename'] =="Просмотр постов"
+        assert response.context['pagename'] == "Просмотр постов"
 
         public_posts = [p for p in self.posts if p.public]
         count = len(public_posts)
@@ -454,9 +454,97 @@ class TestPostPage:
         self.client.force_login(self.user)
         response = self.client.get('/posts/?search=Hello')
 
-        assert response.status_code ==200
+        assert response.status_code == 200
         # Проверяем, что найдены посты с "Hello" в названии или контенте
         found_posts = response.context['posts']
         assert len(found_posts) > 0
         for post in found_posts:
             assert "Hello" in post.title or "Hello" in post.content
+
+    def tes_post_with_sorting(self):
+        """Тест сортировки постов"""
+        self.client.force_login(self.user)
+        response = self.client.get('/posts/?sort=updated_at')
+
+        assert response.status_code == 200
+        assert response.context['sort'] == 'updated_at'
+        # Проверяем, что посты отсортированы по data
+        posts_list = list(response.context['posts'])
+        for i in range(len(posts_list) - 1):
+            assert posts_list[i].updated_at <= posts_list[i + 1].updated_at
+
+    def test_posts_with_reverse_sorting(self):
+        """Тест обратной сортировки постов"""
+        self.client.force_login(self.user)
+        response = self.client.get('/posts/?sort=-updated_at')
+
+        assert response.status_code == 200
+        assert response.context['sort'] == '-updated_at'
+        posts_list = list(response.context['posts'])
+        for i in range(len(posts_list) - 1):
+            assert posts_list[i].updated_at >= posts_list[i + 1].updated_at
+
+    def test_posts_with_views_sorting(self):
+        self.client.force_login(self.user)
+        response = self.client.get('/posts/?sort=views_count')
+
+        assert response.status_code == 200
+        assert response.context['sort'] == 'views_count'
+        posts_list = list(response.context['posts'])
+        for i in range(len(posts_list) - 1):
+            assert posts_list[i].views_count <= posts_list[i+1].views_count
+
+    def test_public_and_private_posts_for_authenticated_user(self):
+        """Тест доступа к публичным и приватным постам для авторизованного пользователя"""
+        self.client.force_login(self.user)
+        response = self.client.get('/posts/')
+
+        assert response.status_code == 200
+        posts_list = list(response.context['posts'].paginator.object_list)
+
+        # Проверяем, что видны публичные посты всех пользователей
+        public_posts = [p for p in self.posts if p.public]
+        for post in public_posts:
+            assert post in posts_list
+
+        # Проверяем, что видны приватные посты текущего пользователя
+        private_own_posts = [p for p in self.posts if not p.public and p.author == self.user]
+        for post in private_own_posts:
+            assert post in posts_list
+
+    def test_only_public_posts_for_anonymous_user(self):
+        """Тест доступа только к публичным постам для неавторизованного пользователя"""
+        response = self.client.get('/posts/')
+
+        assert response.status_code ==200
+        posts_list = list(response.context['posts'].paginator.object_list)
+
+        # Проверяем, что видны только публичные посты
+        public_posts = [p for p in self.posts if p.public]
+        for post in public_posts:
+            assert post in posts_list
+
+        # Проверяем, что НЕ видны приватные посты
+        private_posts = [p for p in self.posts if not p.public]
+        for post in private_posts:
+            assert post in posts_list
+
+    def test_paginator(self):
+        """Тест пагинации"""
+        self.client.force_login(self.user)
+        response = self.client.get('/posts/')
+
+        assert response.status_code == 200
+        assert 'posts' in response.context
+        # Проверяем, что пагинация работает (по 5 элементов на страницу)
+        assert hasattr(response.context['posts'], 'has_other_pages')
+        assert hasattr(response.context['posts'], 'number')
+        assert hasattr(response.context['posts'], 'paginator')
+
+    def rest_empty_search_result(self):
+        """Тест поиска с пустыми результатами"""
+        self.client.force_login(self.user)
+        response = self.client.get('/posts/?search=NotExistentPost')
+
+        assert response.status_code == 200
+        assert response.context['posts'] == 0

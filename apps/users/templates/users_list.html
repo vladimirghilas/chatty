@@ -1,141 +1,131 @@
 {% extends 'base.html' %}
+{% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/users_list.css' %}">
+{% endblock %}
 {% block content %}
-<style>
-    /* Стили таблицы */
-    table.table {
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        table-layout: fixed; /* фиксированные колонки */
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0 10px; /* пространство между строками */
-    }
-
-    table.table th, table.table td {
-        vertical-align: middle;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        padding: 10px 12px;
-    }
-
-    thead.table-dark th {
-        background-color: #343a40;
-        color: white;
-        text-align: left;
-    }
-
-    table tbody tr {
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    table tbody tr:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-
-    /* Пагинация */
-    .pagination .page-link {
-        border-radius: 50%;
-        margin: 0 2px;
-    }
-
-    .pagination .page-item.active .page-link {
-        background-color: #0d6efd;
-        border-color: #0d6efd;
-    }
-
-    /* Поле поиска */
-    .input-group input.form-control {
-        border-radius: 0.5rem 0 0 0.5rem;
-    }
-
-    .input-group button.btn {
-        border-radius: 0 0.5rem 0.5rem 0;
-    }
-
-    /* Кнопка Посмотреть */
-    .btn-sm {
-        font-size: 0.85rem;
-        padding: 0.25rem 0.5rem;
-    }
-</style>
-
-<div class="container mt-5">
-    <h2>Список пользователей</h2>
-
-    <!-- Форма поиска -->
-    <form method="get" class="mb-4">
-        <div class="input-group">
-            <input type="text" name="q" class="form-control" placeholder="Поиск пользователя" value="{{ query }}">
-            <button class="btn btn-primary" type="submit">Поиск</button>
+    <div class="container mt-4">
+        <!-- Заголовок и поиск -->
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+            <h4 class="mb-2">Пользователи</h4>
+            <a href="?sort=username{% if search %}&search={{ search }}{% endif %}"
+               class="{% if sort == 'username' %}active{% endif %}">
+                По имени
+            </a>
+            <a href="?sort=-date_joined{% if search %}&search={{ search }}{% endif %}"
+               class="{% if sort == '-date_joined' %}active{% endif %}">
+                Недавно зарегистрированные
+            </a>
+            <a href="?sort={% if sort == 'posts_count' %}-posts_count{% else %}posts_count{% endif %}{% if search %}&search={{ search }}{% endif %}"
+               class="{% if sort == 'posts_count' or sort == '-posts_count' %}active{% endif %}">
+                По количеству постов
+            </a>
+            <form method="get" class="d-flex search-bar">
+                <input type="text" name="search" class="form-control form-control-sm me-2"
+                       placeholder="Поиск по имени" value="{{ search }}">
+                <button type="submit" class="btn btn-primary btn-sm">🔍</button>
+            </form>
         </div>
-    </form>
 
-    <table class="table table-striped table-hover">
-        <thead class="table-info">
-            <tr>
-                <th style="width: 30%;">Имя пользователя</th>
-                <th style="width: 30%;">Email</th>
-                <th style="width: 20%;">Дата регистрации</th>
-                <th style="width: 20%;">Посты пользователя</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.date_joined|date:"d.m.Y H:i" }}</td>
-                    <td>
-                        <a href="{% url 'posts:posts_list' %}?author={{ user.id }}" class="btn btn-sm btn-outline-primary py-0 px-1">
-                            Посмотреть
-                        </a>
-                    </td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="4" class="text-center">Пользователей нет</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <div class="feed-layout">
+            <!-- Левый сайдбар (например, популярные авторы) -->
+            <div class="d-none d-lg-block">
+                <div class="sidebar-card">
+                    <h5>🏆 Популярные авторы</h5>
+                    {% for top_user in top_users %}
+                        <div class="d-flex align-items-center mb-2">
+                            {% if top_user.profile.avatar %}
+                                <img src="{{ top_user.profile.avatar.url }}" class="rounded-circle me-2" width="30"
+                                     height="30">
+                            {% else %}
+                                <div class="bg-secondary-subtle rounded-circle me-2"
+                                     style="width:30px; height:30px;"></div>
+                            {% endif %}
+                            <a href="{% url 'users:profile_view' top_user.id %}" class="text-decoration-none">
+                                {{ top_user.username }}
+                            </a>
+                        </div>
+                    {% empty %}
+                        <p class="text-muted">Нет данных</p>
+                    {% endfor %}
+                </div>
+            </div>
 
-    <!-- Пагинация -->
-    {% if users.has_other_pages %}
-        <nav aria-label="Навигация пользователей">
-            <ul class="pagination justify-content-center">
-                {% if users.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="?q={{ query }}&page={{ users.previous_page_number }}">«</a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled"><span class="page-link">«</span></li>
-                {% endif %}
-
-                {% for num in users.paginator.page_range %}
-                    {% if num == users.number %}
-                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-                    {% else %}
-                        <li class="page-item">
-                            <a class="page-link" href="?q={{ query }}&page={{ num }}">{{ num }}</a>
-                        </li>
-                    {% endif %}
+            <!-- Основной блок -->
+            <div>
+                {% for user in users %}
+                    <div class="user-card mb-3" onclick="window.location='{% url 'users:profile_view' user.id %}'">
+                        <div class="d-flex align-items-center">
+                            {% if user.profile.avatar %}
+                                <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}" class="user-avatar">
+                            {% else %}
+                                <div class="bg-secondary-subtle rounded-circle user-avatar"></div>
+                            {% endif %}
+                            <div>
+                                <h6 class="mb-1">{{ user.username }}</h6>
+                                <small class="text-muted">
+                                    Зарегистрирован: {{ user.date_joined|date:"d.m.Y" }}
+                                </small><br>
+                                <small>Постов: {{ user.posts_count }}</small>
+                                <small>Подписчики: {{ user.followers_count }}</small>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-center text-muted mt-5">Пользователей нет</p>
                 {% endfor %}
 
-                {% if users.has_next %}
-                    <li class="page-item">
-                        <a class="page-link" href="?q={{ query }}&page={{ users.next_page_number }}">»</a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled"><span class="page-link">»</span></li>
+                <!-- Пагинация -->
+                {% if users.has_other_pages %}
+                    <ul class="pagination justify-content-center pagination-sm mt-3">
+                        {% if users.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="?page={{ users.previous_page_number }}&search={{ search }}&sort={{ sort }}">«</a>
+                            </li>
+                        {% endif %}
+
+                        {% for num in users.paginator.page_range %}
+                            {% if num >= users.number|add:'-2' and num <= users.number|add:'2' %}
+                                <li class="page-item {% if users.number == num %}active{% endif %}">
+                                    <a class="page-link"
+                                       href="?page={{ num }}&search={{ search }}&sort={{ sort }}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if users.has_next %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="?page={{ users.next_page_number }}&search={{ search }}&sort={{ sort }}">»</a>
+                            </li>
+                        {% endif %}
+                    </ul>
                 {% endif %}
-            </ul>
-        </nav>
-    {% endif %}
-</div>
+            </div>
+
+            <!-- Правый сайдбар -->
+            <div class="d-none d-lg-block">
+                <div class="sidebar-card">
+                    <h5>🕓 Недавно присоединились</h5>
+                    {% for recent in recent_users %}
+                        <a href="{% url 'users:profile_view' recent.id %}"
+                           class="d-flex align-items-center mb-2 text-decoration-none">
+                            {% if recent.profile.avatar %}
+                                <img src="{{ recent.profile.avatar.url }}" width="30" height="30"
+                                     class="rounded-circle me-2">
+                            {% else %}
+                                <div class="bg-secondary-subtle rounded-circle me-2"
+                                     style="width:30px; height:30px;"></div>
+                            {% endif %}
+                            {{ recent.username }}
+                        </a>
+                    {% empty %}
+                        <p class="text-muted">Нет пользователей</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
